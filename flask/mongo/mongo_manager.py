@@ -2,13 +2,12 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from pprint import pprint
 import os
-from ..constants import *
 
 class MongoManager:
 
-    def __init__(self):
+    def __init__(self, db_name:):
         self.client = MongoClient(os.getenv('MONGO_URI'))
-        self.db = self.client[DB]
+        self.db = self.client['SmartCar']
 
     def getCollection(self, coll_name:str):
         return self.db[coll_name]
