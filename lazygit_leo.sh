@@ -8,4 +8,4 @@ fi
 
 git add .
 git commit -m "$message"
-git push origin leo
+git push origin cam
