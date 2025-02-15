@@ -14,6 +14,7 @@ class BarcodeReader:
 		req = requests.get(f'https://go-upc.com/search?q={upc}')
 		soup = BeautifulSoup(req.text, features='html.parser')
 		name = soup.find(class_='product-name').text
+		return name
 
 	def addItem(self, item):
 		pass

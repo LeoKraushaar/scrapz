@@ -20,7 +20,7 @@ def pantry():
         items=items
     )
 
-@app.route('/get-recipe')
+@app.route('/recipes/results')
 def getRecipe():
     recipes = mongo.queryCollection(RECIPES)
     
