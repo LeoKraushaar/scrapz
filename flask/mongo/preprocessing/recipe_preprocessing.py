@@ -1,9 +1,16 @@
 import json
+import os
+from dotenv import load_dotenv
 from pprint import pprint
 from pymongo import MongoClient
-
+from api.food_categories import food_categories
 
 def recipe_preprocessing(recipe):
+    load_dotenv()
+    client = MongoClient(os.getenv("MONGO_URI"))  # Use MongoDB
+    db = client["SmartCart"]  # Database name
+    collection = db["recipes"]  # Collection name
+    
     with open(recipe, "r") as file:
         data = json.load(file) # converts JSON to py dictionary
 
@@ -33,15 +40,16 @@ def recipe_preprocessing(recipe):
         
         recipes.append(recipe)
         
+    try:
+        collection.insert_many(recipes, ordered=False)
+        print("Added successfully!")
+    except Exception as e:
+        print(e)
+    finally:
+        client.close()
+        
     return recipes
 
 
 data = recipe_preprocessing("recipe_test.json")
-pprint(data)
-
-client = MongoClient("mongodb+srv://cam:0HPmO2G3GVLNF8Hp@c-flat.t2z0j.mongodb.net")  # Use local MongoDB
-db = client["SmartCart"]  # Database name
-collection = db["recipes"]  # Collection name
-
-# Inserting the data into the collection
-result = collection.insert_many(data)
+#pprint(data)
