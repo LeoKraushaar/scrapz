@@ -5,9 +5,9 @@ import os
 
 class MongoManager:
 
-    def __init__(self, db_name:):
+    def __init__(self, db_name:str):
         self.client = MongoClient(os.getenv('MONGO_URI'))
-        self.db = self.client['SmartCar']
+        self.db = self.client[db_name]
 
     def getCollection(self, coll_name:str):
         return self.db[coll_name]
