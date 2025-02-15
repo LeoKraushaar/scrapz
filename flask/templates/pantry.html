@@ -1,0 +1,13 @@
+
+
+<!doctype html>
+
+<title>Your Pantry</title>
+	{% if items %}
+  		{{% for i in range(0, n) %}}
+		<h1>{{items[i]}}</h1>
+			
+	{% else %}
+  		<h1>Your pantry is empty!</h1>
+
+{% endif %}
