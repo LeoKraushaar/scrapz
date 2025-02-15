@@ -1,13 +1,53 @@
-
-
-<!doctype html>
-
-<title>Your Pantry</title>
-	{% if items %}
-  		{{% for i in range(0, n) %}}
-		<h1>{{items[i]}}</h1>
-			
-	{% else %}
-  		<h1>Your pantry is empty!</h1>
-
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>My Pantry</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			margin: 0;
+			padding: 0;
+		}
+		header {
+			background-color: #d9f13a;
+			color: white;
+			padding: 1rem;
+			text-align: center;
+		}
+		main {
+			padding: 2rem;
+		}
+		h2 {
+			color: #333;
+		}
+		ul {
+			list-style-type: none;
+			padding: 0;
+		}
+		li {
+			background-color: white;
+			margin: 0.5rem 0;
+			padding: 1rem;
+			border-radius: 5px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>My Pantry</h1>
+	</header>
+	<main>
+		<h2>Current Items in Pantry</h2>
+		<ul>
+			{% for item in pantry_items %}
+				<li>{{ item.name }} - {{ item.quantity }}</li>
+			{% endfor %}
+		</ul>
+	</main>
+</body>
+</html>

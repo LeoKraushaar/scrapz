@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- Ensure the page scales correctly on mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mobile Home Page</title>
   <style>
@@ -13,12 +12,10 @@
       box-sizing: border-box;
     }
 
-    /* Basic mobile-friendly styling */
     body {
       font-family: Arial, sans-serif;
       background: #f8f8f8;
       color: #333;
-      padding-bottom: 60px; /* Space for the fixed footer */
     }
 
     header {
@@ -28,9 +25,45 @@
       text-align: center;
     }
 
-    main {
-      padding: 20px;
+    footer {
+      background: #333;
+      color: #fff;
       text-align: center;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* Main area margins to account for header and fixed footer */
+    main {
+      margin-top: 60px; /* adjust based on header height */
+      margin-bottom: 60px; /* adjust based on footer height */
+    }
+
+    /* Container for vertical split */
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 120px); /* subtract header and footer heights */
+    }
+
+    .half {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .top-half {
+      background-color: #ffffff;
+      border-bottom: 2px solid #000; /* Black line separator */
+    }
+
+    .bottom-half {
+      background-color: #fffee9;
     }
 
     .btn {
@@ -43,16 +76,6 @@
       font-size: 1.2em;
       margin-top: 20px;
     }
-
-    footer {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
   </style>
 </head>
 <body>
@@ -60,8 +83,19 @@
     <h1>Welcome to Our Mobile Home</h1>
   </header>
   <main>
-    <p>Tap the button below to view our Pantry page.</p>
-    <a href="pantry.html" class="btn">Go to Pantry</a>
+    <div class="container">
+      <!-- Top Half: White Background -->
+      <div class="half top-half">
+        <div>
+          <p>Tap the button below to view our Pantry page.</p>
+          <a href="pantry.html" class="btn">Go to Pantry</a>
+        </div>
+      </div>
+      <!-- Bottom Half: #F5CC6E Background -->
+      <div class="half bottom-half">
+        <h2>Your Visual Section</h2>
+      </div>
+    </div>
   </main>
   <footer>
     <p>&copy; 2025 Your Company</p>
