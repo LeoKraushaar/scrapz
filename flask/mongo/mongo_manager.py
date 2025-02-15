@@ -2,7 +2,7 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from pprint import pprint
 import os
-# from ..constants import *
+from ..constants import *
 
 class MongoManager:
 
@@ -17,9 +17,7 @@ class MongoManager:
         coll = self.getCollection(coll_name)
         return list(coll.find())
 
-
 if __name__ == '__main__':
     print(os.getcwd())
     load_dotenv()
     mongo = MongoManager()
-    pprint(mongo.queryCollection(ITEMS))
