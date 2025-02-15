@@ -6,3 +6,6 @@ freeze:
 
 install:
 	pip install -r requirements.txt
+
+run:
+	flask --app flask/home.py run
