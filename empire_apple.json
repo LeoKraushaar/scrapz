@@ -1,0 +1,103 @@
+{
+    "food": {
+      "foodId": "food_a1gb9ubb72c7snbuxr3weagwv0dd",
+      "label": "Empire Apple",
+      "knownAs": "apple",
+      "nutrients": {
+        "ENERC_KCAL": 52,
+        "PROCNT": 0.26,
+        "FAT": 0.17,
+        "CHOCDF": 13.8,
+        "FIBTG": 2.4
+      },
+      "category": "Generic foods",
+      "categoryLabel": "food",
+      "image": "https://www.edamam.com/food-img/42c/42c006401027d35add93113548eeaae6.jpg"
+    },
+    "measures": [
+      {
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#Measure_serving",
+        "label": "Serving",
+        "weight": 242
+      },
+      {
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#Measure_unit",
+        "label": "Whole",
+        "weight": 182,
+        "qualified": [
+          {
+            "qualifiers": [
+              {
+                "uri": "http://www.edamam.com/ontologies/edamam.owl#Qualifier_large",
+                "label": "large"
+              }
+            ],
+            "weight": 223
+          },
+          {
+            "qualifiers": [
+              {
+                "uri": "http://www.edamam.com/ontologies/edamam.owl#Qualifier_small",
+                "label": "small"
+              }
+            ],
+            "weight": 149
+          },
+          {
+            "qualifiers": [
+              {
+                "uri": "http://www.edamam.com/ontologies/edamam.owl#Qualifier_medium",
+                "label": "medium"
+              }
+            ],
+            "weight": 182
+          }
+        ]
+      },
+      {
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#Measure_apple",
+        "label": "Apple",
+        "weight": 182
+      },
+      {
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
+        "label": "Gram",
+        "weight": 1
+      },
+      {
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#Measure_ounce",
+        "label": "Ounce",
+        "weight": 28.349523125
+      },
+      {
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#Measure_pound",
+        "label": "Pound",
+        "weight": 453.59237
+      },
+      {
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#Measure_kilogram",
+        "label": "Kilogram",
+        "weight": 1000
+      },
+      {
+        "uri": "http://www.edamam.com/ontologies/edamam.owl#Measure_cup",
+        "label": "Cup",
+        "weight": 109,
+        "qualified": [
+          {
+            "qualifiers": [
+              {
+                "uri": "http://www.edamam.com/ontologies/edamam.owl#Qualifier_quartered",
+                "label": "quartered"
+              },
+              {
+                "uri": "http://www.edamam.com/ontologies/edamam.owl#Qualifier_chopped",
+                "label": "chopped"
+              }
+            ],
+            "weight": 125
+          }
+        ]
+      }
+    ]
+  }
