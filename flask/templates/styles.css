@@ -1,0 +1,12 @@
+/* Color Palette */
+:root {
+    --color-1: rgb(238, 205, 124);
+    --color-2: rgb(79, 155, 143);
+    --color-3: rgb(232, 166, 108);
+    --color-4: rgb(61, 113, 166);
+    --color-5: rgb(190, 74, 242);
+    --color-6: rgb(104, 75, 236);
+    --color-7: rgb(216, 118, 89);
+    --color-8: rgb(166, 51, 37);
+    --color-9: rgb(217, 217, 217);
+}
