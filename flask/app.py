@@ -15,12 +15,12 @@ def home():
 def pantry():
     items = mongo.queryCollection(ITEMS)
     return render_template(
-        'pantry.html',
-        n=len(items),
-        items=items
-    )
+            'pantry.html',
+            n=len(items),
+            items=items
+        )
 
 @app.route('/recipes/results')
 def getRecipe():
     recipes = mongo.queryCollection(RECIPES)
-    
+
