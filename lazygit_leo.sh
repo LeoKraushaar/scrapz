@@ -5,7 +5,7 @@ else
 	message=$1
 fi
 
-
+git checkout leo
 git add .
 git commit -m "$message"
 git push origin leo
