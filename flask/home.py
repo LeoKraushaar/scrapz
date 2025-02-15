@@ -7,7 +7,9 @@ mongo = MongoManager(DB)
 
 @app.route("/")
 def home():
-    return "<p>Welcome to SmartCart!</p>"
+    return render_template(
+        'index.html'
+    )
 
 @app.route('/pantry')
 def pantry():

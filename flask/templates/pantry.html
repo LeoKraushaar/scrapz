@@ -5,9 +5,9 @@
 <title>Your Pantry</title>
 	{% if items %}
   		{% for i in range(0, n) %}
-			<h1>{{items[i]}}</h1>
+			<h1>{{items[i].Label}}</h1>
+			<img src="{{items[i].image}}">
 		{% endfor %}
-			
 	{% else %}
   		<h1>Your pantry is empty!</h1>
 
