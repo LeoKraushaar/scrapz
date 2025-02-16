@@ -3,13 +3,14 @@ import os
 from dotenv import load_dotenv
 from pprint import pprint
 from pymongo import MongoClient
-from api.food_categories import food_categories
+#from mongo_manager import MongoManager
+#from api.food_categories import food_categories
 
 def recipe_preprocessing(recipe):
     load_dotenv()
-    client = MongoClient(os.getenv("MONGO_URI"))  # Use MongoDB
-    db = client["SmartCart"]  # Database name
-    collection = db["recipes"]  # Collection name
+    client = MongoClient(os.getenv('MONGO_URI'))
+    db = client['SmartCart'] # Database name
+    collection = db['items'] # Collection name
     
     with open(recipe, "r") as file:
         data = json.load(file) # converts JSON to py dictionary
@@ -41,7 +42,10 @@ def recipe_preprocessing(recipe):
         recipes.append(recipe)
         
     try:
-        collection.insert_many(recipes, ordered=False)
+        # test_doc = {"test": "data"}
+        # result = collection.insert_one(test_doc)
+        # print("Inserted ID:", result.inserted_id)
+        collection.insert_many(recipes)
         print("Added successfully!")
     except Exception as e:
         print(e)
