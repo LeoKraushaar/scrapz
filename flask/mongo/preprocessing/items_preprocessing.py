@@ -2,9 +2,9 @@ import os
 from dotenv import load_dotenv
 import json
 from pymongo import MongoClient
-from api.food_categories import food_categories
+from food_categories import food_categories
 
-def items_preprocessing(file):
+def items_preprocessing(file, name):
     load_dotenv()
     client = MongoClient(os.getenv('MONGO_URI'))
     db = client['SmartCart']
@@ -19,16 +19,16 @@ def items_preprocessing(file):
         individual_item = item['food']
         individual_item['quantity_owned'] = 0
         individual_item['expiry date'] = 'MM-DD-YYYY'
-        # if individual_item['knownAs'] in food_categories['vegetables']:
-        #     individual_item['category'] = 'vegetable'
-        # elif individual_item['knownAs'] in food_categories['fruits']:
-        #     individual_item['category'] = 'fruit'
-        # elif individual_item['knownAs'] in food_categories['meat']:
-        #     individual_item['category'] = 'meat'
-        # elif individual_item['knownAs'] in food_categories['dairy']:
-        #     individual_item['category'] = 'dairy'
-        # elif individual_item['knownAs'] in food_categories['seafood']:
-        #     individual_item['category'] = 'seafood'
+        if name in food_categories['vegetables']:
+            individual_item['category'] = 'vegetable'
+        elif name in food_categories['fruits']:
+            individual_item['category'] = 'fruit'
+        elif name in food_categories['meat']:
+            individual_item['category'] = 'meat'
+        elif name in food_categories['dairy']:
+            individual_item['category'] = 'dairy'
+        elif name in food_categories['seafood']:
+            individual_item['category'] = 'seafood'
         individual_items.append(individual_item)
 
     try:
@@ -38,7 +38,3 @@ def items_preprocessing(file):
         print(e)
     finally:
         client.close()
-
-# Test
-# pprint.pp(items_preprocessing('misc/response_1739656987853.json'))
-items_preprocessing('misc/item_PLU.json')
