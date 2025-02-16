@@ -5,21 +5,6 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from mongodb.preprocessing.food_categories import food_categories
 
-def IsOwned(foodId):
-    '''
-    Checks if the item is in user inventory.
-    Returns true if yes, else false.
-    '''
-    load_dotenv()
-    client = MongoClient(os.getenv('MONGO_URI'))
-    db = client['SmartCart']
-    collection = db['useritems']
-    if collection.find_one({"foodId": foodId}):
-        return True
-    else:
-        return False
-
-
 def ProcessItems(dict, quantity, date):
     '''
     Adds the processed item into db.
@@ -46,8 +31,10 @@ def ProcessItems(dict, quantity, date):
     p = inflect.engine() # Helps convert nouns into singular form
     food_singular = p.singular_noun(item['name'])
     if food_singular == False:
-        food_singular = item['name']
-    print(food_singular)
+        food_singular = item['name'].lower()
+    else:
+        food_singular = food_singular.lower()
+
     if any(food_singular in vegetable.lower() for vegetable in food_categories['vegetables']):
         item['category'] = 'vegetable'
     elif any(food_singular in fruit.lower() for fruit in food_categories['fruits']):
@@ -91,18 +78,25 @@ def ProcessUnknownItems(name, quantity, date):
     item['Fiber(g)'] = 0
     item['Protein(g)'] = 0
     item['image'] = 'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/hamburger.png'
+  
     p = inflect.engine() # Helps convert nouns into singular form
-    if any(p.singular_noun(item['name'].lower()) in vegetable.lower() for vegetable in food_categories['vegetables']):
+    food_singular = p.singular_noun(item['name'])
+    if food_singular == False:
+        food_singular = item['name'].lower()
+    else:
+        food_singular = food_singular.lower()
+
+    if any(food_singular in vegetable.lower() for vegetable in food_categories['vegetables']):
         item['category'] = 'vegetable'
-    elif any(p.singular_noun(item['name'].lower()) in fruit.lower() for fruit in food_categories['fruits']):
+    elif any(food_singular in fruit.lower() for fruit in food_categories['fruits']):
         item['category'] = 'fruit'
-    elif any(p.singular_noun(item['name'].lower()) in meat.lower() for meat in food_categories['meat']):
+    elif any(food_singular in meat.lower() for meat in food_categories['meat']):
         item['category'] = 'meat'
-    elif any(p.singular_noun(item['name'].lower()) in dairy.lower() for dairy in food_categories['dairy']):
+    elif any(food_singular in dairy.lower() for dairy in food_categories['dairy']):
         item['category'] = 'dairy'
-    elif any(p.singular_noun(item['name'].lower()) in seafood.lower() for seafood in food_categories['seafood']):
+    elif any(food_singular in seafood.lower() for seafood in food_categories['seafood']):
         item['category'] = 'seafood'
-    elif any(p.singular_noun(item['name'].lower()) in condiments.lower() for condiments in food_categories['condiments/ingredients']):
+    elif any(food_singular in condiments.lower() for condiments in food_categories['condiments/ingredients']):
         item['category'] = 'condiments/ingredients'
 
     try:
