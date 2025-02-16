@@ -22,7 +22,7 @@ class MongoManager:
     def executePipeline(self, coll_name:str):
         coll = self.getCollection(coll_name)
         results = coll.aggregate(self.pipeline)
-        return results
+        return list(results)
     
     ## Aggregation functions go here
 
@@ -197,6 +197,18 @@ class MongoManager:
         }
 
         return [stage]
+    
+    def ownRandom(self, n=50):
+        sample = self.getCollection('items').update_many(
+            {'$sample':{'size':n}},
+            {'$setField':{
+                'quantity_owned':2
+            }}
+        )
+
+        print([i for i in sample])
+
 
 if __name__ == '__main__':
-    mongo = MongoManager()
+    mongo = MongoManager('SmartCart')
+    mongo.ownRandom()
