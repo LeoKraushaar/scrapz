@@ -11,6 +11,7 @@
       <button type="submit" id="add-item-btn" class="demo-btn">Add Item</button>
     </form>
   </div>
+  <button id="preferences-btn" class="demo-btn">Preferences</button>
   <table id="item-table">
     <thead>
       <tr>
@@ -29,5 +30,43 @@
   </table>
 </div>
 
+<!-- Preferences Overlay -->
+<div id="preferences-overlay" class="overlay">
+  <div class="overlay-content">
+    <span class="close-btn" onclick="closePreferences()">&times;</span>
+    <h2>Preferences</h2>
+    <label for="prep-time-slider">Prep Time:</label>
+    <input type="range" id="prep-time-slider" min="10" max="120" step="10" value="10" oninput="updatePrepTime(this.value)">
+    <span id="prep-time-value">10 minutes</span>
+    <br>
+    <label for="cooking-time-slider">Cooking Time:</label>
+    <input type="range" id="cooking-time-slider" min="10" max="120" step="10" value="10" oninput="updateCookingTime(this.value)">
+    <span id="cooking-time-value">10 minutes</span>
+    <br>
+    <button class="demo-btn" onclick="closePreferences()">Done</button>
+  </div>
+</div>
+
 <script src="{{ url_for('static', filename='add.js') }}"></script>
+<script>
+  // Open Preferences Overlay
+  document.getElementById('preferences-btn').onclick = function() {
+    document.getElementById('preferences-overlay').style.display = 'block';
+  };
+
+  // Close Preferences Overlay
+  function closePreferences() {
+    document.getElementById('preferences-overlay').style.display = 'none';
+  }
+
+  // Update Prep Time Display
+  function updatePrepTime(value) {
+    document.getElementById('prep-time-value').innerText = value + ' minutes';
+  }
+
+  // Update Cooking Time Display
+  function updateCookingTime(value) {
+    document.getElementById('cooking-time-value').innerText = value + ' minutes';
+  }
+</script>
 {% endblock %}
