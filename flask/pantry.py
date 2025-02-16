@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from mongodb.preprocessing.get_items import FindItems
 from mongodb.preprocessing.items_preprocessing import ProcessUnknownItems, ProcessItems
 from pymongo import MongoClient
@@ -36,7 +36,10 @@ def view_pantry():
     collection = db['useritems']
 
     # Fetch pantry items from the database
-    pantry_items = collection.find({}, {'_id': 0, 'name': 1, 'category': 1, 'quantity': 1, 'expiryDate': 1, 'image': 1})
+    pantry_items = collection.aggregate([
+        {"$sort": {"expiryDate": 1}},
+        {"$project": {"_id": 0, "name": 1, "category": 1, "quantity": 1, "expiryDate": 1, "image": 1}}
+    ])
     pantry_items = list(pantry_items)
 
     client.close()
