@@ -24,3 +24,5 @@ def pantry():
 def getRecipe():
     recipes = mongo.queryCollection(RECIPES)
 
+if __name__ == '__main__':
+    app.run(debug=True)
