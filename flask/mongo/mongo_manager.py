@@ -14,10 +14,6 @@ class MongoManager:
     def getCollection(self, coll_name:str):
         return self.db[coll_name]
 
-    def insert(self, coll_name:str, array:list):
-        coll = self.getCollection(coll_name)
-        coll.insert_many(array, ordered=False)
-
     def queryCollection(self, coll_name:str, proj={}, filt={}):
         coll = self.getCollection(coll_name)
         results = coll.find(filt, proj)

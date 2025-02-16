@@ -1,23 +1,24 @@
 import json
 import os
+import certifi
 from dotenv import load_dotenv
 from pprint import pprint
 from pymongo import MongoClient
 #from mongo_manager import MongoManager
 #from api.food_categories import food_categories
 
-def recipe_preprocessing(recipe):
+def recipePreprocessing(recipe):
     load_dotenv()
-    client = MongoClient(os.getenv('MONGO_URI'))
+    client = MongoClient(os.getenv('MONGO_URI'), tlsCAFile=certifi.where())
     db = client['SmartCart'] # Database name
     collection = db['recipes'] # Collection name
     
-    with open(recipe, "r") as file:
-        recipe = file.read()
+    #with open(recipe, "r") as file:
+        #recipe = file.read()
     data = json.loads(recipe) # converts JSON to py dictionary
 
     recipes = []
-    for hit in data["hits"]:  # Loop through each recipe entry
+    for hit in data:  # Loop through each recipe entry
         recipe = hit["recipe"]  # Access the "recipe" dictionary inside each hit
 
         # Extract the relevant information from the recipe dictionary
@@ -36,7 +37,7 @@ def recipe_preprocessing(recipe):
             "cuisineType" : recipe["cuisineType"],
             "mealType" : recipe["mealType"],
             # dishType might be useless, not sure atm
-            "dishType" : recipe["dishType"],
+            "dishType" : recipe["dishType"]
             # Skip over nutrients and digest for now
         }
         
@@ -46,6 +47,7 @@ def recipe_preprocessing(recipe):
         # test_doc = {"test": "data"}
         # result = collection.insert_one(test_doc)
         # print("Inserted ID:", result.inserted_id)
+        pprint(recipes)
         collection.insert_many(recipes)
         print("Added successfully!")
     except Exception as e:
@@ -56,5 +58,5 @@ def recipe_preprocessing(recipe):
     return recipes
 
 
-data = recipe_preprocessing("flask/mongo/preprocessing/recipe_test.json")
+#data = recipePreprocessing("recipe_test.json")
 #pprint(data)
