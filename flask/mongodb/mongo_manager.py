@@ -24,6 +24,9 @@ class MongoManager:
         results = coll.aggregate(self.pipeline)
         return results
     
+    def insertOne(self, collection_name, document):
+        self.db[collection_name].insert_one(document)
+    
     ## Aggregation functions go here
 
     def dropLevel(self, field):

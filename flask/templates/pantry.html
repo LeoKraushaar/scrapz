@@ -5,10 +5,28 @@
 <div class="pantry-container">
   <h2>Pantry Items</h2>
   <div class="add-item-container">
-    <input type="text" id="item-input" placeholder="Enter item" />
-    <button id="add-item-btn" class="demo-btn">Add Item</button>
+    <form id="add-item-form" method="POST" action="{{ url_for('pantry') }}">
+      <input type="text" name="name" id="item-input" placeholder="Enter item" required />
+      <input type="date" name="expiration_date" id="expiration-date-input" placeholder="Enter expiration date" required />
+      <button type="submit" id="add-item-btn" class="demo-btn">Add Item</button>
+    </form>
   </div>
-  <ul id="item-list"></ul>
+  <table id="item-table">
+    <thead>
+      <tr>
+        <th>Item Name</th>
+        <th>Expiration Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.expiration_date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 
 <script src="{{ url_for('static', filename='add.js') }}"></script>
