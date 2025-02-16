@@ -32,7 +32,7 @@ def recipePreprocessing(recipe):
             "cautions" : recipe["cautions"],
             "ingredientLines" : recipe["ingredientLines"],
             # Go through the ingredients to ensure the dictionary is flattened
-            "ingredients" : recipe["ingredients"],
+            "ingredients": [ingredient["food"] for ingredient in recipe["ingredients"]],
             "calories" : recipe["calories"],
             "cuisineType" : recipe["cuisineType"],
             "mealType" : recipe["mealType"],
@@ -47,7 +47,7 @@ def recipePreprocessing(recipe):
         # test_doc = {"test": "data"}
         # result = collection.insert_one(test_doc)
         # print("Inserted ID:", result.inserted_id)
-        pprint(recipes)
+        pprint(recipes) # remove when finihsed
         collection.insert_many(recipes)
         print("Added successfully!")
     except Exception as e:
