@@ -20,7 +20,7 @@ def FindItems(name=None, upc=None):
     
     response = requests.get(endpoint)
     if response.status_code == OK:
-        if len(response.json()) > 0:
+        if len(response.json()['hints']) > 0:
             return response.json()
         else:
             return 1
