@@ -5,6 +5,7 @@ import json
 import time
 from pprint import pprint
 from recipe_preprocessing import recipePreprocessing
+from fetch_pantry import fetchPantry
 
 load_dotenv()
 id = os.getenv('APP_ID')
@@ -96,12 +97,14 @@ def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLab
         return None
 
 
+# Call fetPantry to fetch all user items (food) available
+curInv = fetchPantry()
+
 #### To be removed once Front End is implemented ####
-curInv = ["Chicken     alfredo    "] 
-mealTypes = ["Dinner "]
+mealTypes = ["breakfast"]
 dishTypes = []
 cuisineTypes = []
-dietLabels = []
+dietLabels = ["high protein"]
 healthLabels = []
 #excluded = []
 
