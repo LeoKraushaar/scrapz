@@ -3,18 +3,24 @@ from mongo.mongo_manager import MongoManager
 from constants import *
 
 app = Flask(__name__)
-mongo = MongoManager()
+mongo = MongoManager(DB)
 
 @app.route("/")
 def home():
-    return "<p>Welcome to SmartCart!</p>"
+    return render_template(
+        'index.html'
+    )
 
 @app.route('/pantry')
 def pantry():
     items = mongo.queryCollection(ITEMS)
     return render_template(
-        'templates/pantry.html',
-        n=len(items),
-        
-    )
+            'pantry.html',
+            n=len(items),
+            items=items
+        )
+
+@app.route('/recipes/results')
+def getRecipe():
+    recipes = mongo.queryCollection(RECIPES)
 
