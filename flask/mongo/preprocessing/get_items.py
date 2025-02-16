@@ -1,10 +1,10 @@
 import os
 from dotenv import load_dotenv
 import requests
-from food_categories import food_categories
-from items_preprocessing import items_preprocessing
 import json
 import time
+from food_categories import food_categories
+from items_preprocessing import items_preprocessing
 
 load_dotenv()
 OK =  200
