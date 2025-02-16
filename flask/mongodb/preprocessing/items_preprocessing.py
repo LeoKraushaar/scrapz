@@ -3,7 +3,7 @@ import datetime
 import inflect
 from dotenv import load_dotenv
 from pymongo import MongoClient
-from food_categories import food_categories
+from mongodb.preprocessing.food_categories import food_categories
 
 def IsOwned(foodId):
     '''
@@ -44,17 +44,21 @@ def ProcessItems(dict, quantity, date):
     item['image'] = food['image']
     
     p = inflect.engine() # Helps convert nouns into singular form
-    if any(p.singular_noun(item['name'].lower()) in vegetable.lower() for vegetable in food_categories['vegetables']):
+    food_singular = p.singular_noun(item['name'])
+    if food_singular == False:
+        food_singular = item['name']
+    print(food_singular)
+    if any(food_singular in vegetable.lower() for vegetable in food_categories['vegetables']):
         item['category'] = 'vegetable'
-    elif any(p.singular_noun(item['name'].lower()) in fruit.lower() for fruit in food_categories['fruits']):
+    elif any(food_singular in fruit.lower() for fruit in food_categories['fruits']):
         item['category'] = 'fruit'
-    elif any(p.singular_noun(item['name'].lower()) in meat.lower() for meat in food_categories['meat']):
+    elif any(food_singular in meat.lower() for meat in food_categories['meat']):
         item['category'] = 'meat'
-    elif any(p.singular_noun(item['name'].lower()) in dairy.lower() for dairy in food_categories['dairy']):
+    elif any(food_singular in dairy.lower() for dairy in food_categories['dairy']):
         item['category'] = 'dairy'
-    elif any(p.singular_noun(item['name'].lower()) in seafood.lower() for seafood in food_categories['seafood']):
+    elif any(food_singular in seafood.lower() for seafood in food_categories['seafood']):
         item['category'] = 'seafood'
-    elif any(p.singular_noun(item['name'].lower()) in condiments.lower() for condiments in food_categories['condiments/ingredients']):
+    elif any(food_singular in condiments.lower() for condiments in food_categories['condiments/ingredients']):
         item['category'] = 'condiments/ingredients'
 
     try:
