@@ -38,5 +38,7 @@ def view_pantry():
     pantry_items = collection.find({}, {'_id': 0, 'name': 1, 'quantity': 1, 'expiryDate': 1})
     pantry_items = list(pantry_items)
 
+    client.close()
+
     # Render the template and pass pantry items
     return render_template('pantry.html', pantry_items=pantry_items)
