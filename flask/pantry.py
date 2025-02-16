@@ -23,9 +23,10 @@ def pantry():
             ProcessItems(found_item, quantity, expiry_date)
 
         # Redirect to the pantry page after processing
-        return redirect(url_for('pantry.view_pantry'))
+        # return redirect(url_for('pantry.view_pantry'))
 
-    return render_template('pantry.html')  # Render the form for the user
+    # return render_template('pantry.html')  # Render the form for the user
+    return redirect(url_for('pantry.view_pantry'))
 
 @pantry_bp.route('/pantry/view')
 def view_pantry():
@@ -35,7 +36,7 @@ def view_pantry():
     collection = db['useritems']
 
     # Fetch pantry items from the database
-    pantry_items = collection.find({}, {'_id': 0, 'name': 1, 'quantity': 1, 'expiryDate': 1})
+    pantry_items = collection.find({}, {'_id': 0, 'name': 1, 'category': 1, 'quantity': 1, 'expiryDate': 1, 'image': 1})
     pantry_items = list(pantry_items)
 
     client.close()

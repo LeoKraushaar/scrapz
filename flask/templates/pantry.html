@@ -28,15 +28,21 @@
   
   <!-- Display pantry items -->
   <h3>Current Pantry Items</h3>
-  <ul>
+  <ul style="list-style-type: none; padding: 0;">
     {% for item in pantry_items %}
-      <li>
-        <strong>{{ item.name }}</strong><br>
-        Quantity: {{ item.quantity }}<br>
-        Expires: {{ item.expiryDate }}
+      <li style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+        {% if item.image %}
+          <img src="{{ item.image }}" alt="{{ item.name }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px;">
+        {% endif %}
+        <div>
+          <strong>{{ item.name }}</strong><br>
+          Category: {{ item.category }}<br>
+          Quantity: {{ item.quantity }}<br>
+          Expires: {{ item.expiryDate }}
+        </div>
       </li>
     {% endfor %}
-  </ul>
+  </ul>   
 </div>
 
 <script src="{{ url_for('static', filename='add.js') }}"></script>
