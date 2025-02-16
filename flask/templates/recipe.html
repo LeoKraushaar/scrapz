@@ -30,14 +30,76 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        .recipe-container {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            max-width: 600px;
+          }
+          .recipe-image {
+            max-width: 100%;
+            border-radius: 5px;
+          }
+          .recipe-label {
+            font-size: 1.5rem;
+            margin: 10px 0;
+          }
+          .recipe-source {
+            margin: 5px 0;
+          }
+          .recipe-source a {
+            text-decoration: none;
+            color: #007BFF;
+          }
+          .recipe-source a:hover {
+            text-decoration: underline;
+          }
+          .ingredients-list {
+            margin-top: 10px;
+            list-style-type: disc;
+            margin-left: 20px;
+          }
     </style>
 </head>
 <body>
-    <h1>Recipe List</h1>
-    <ul>
-        <li>Recipe 1</li>
-        <li>Recipe 2</li>
-        <li>Recipe 3</li>
-    </ul>
+    <h1>Recipe Results</h1>
+
+  {% if recipes %}
+    {% for recipe in recipes %}
+      <div class="recipe-container">
+        
+        <!-- Recipe Image -->
+        <img 
+          src="{{ recipe.image }}" 
+          alt="{{ recipe.label }}" 
+          class="recipe-image"
+        />
+        
+        <!-- Recipe Label -->
+        <h2 class="recipe-label">{{ recipe.label }}</h2>
+        
+        <!-- Source with Hyperlink -->
+        <p class="recipe-source">
+          Source: 
+          <a href="{{ recipe.url }}" target="_blank">
+            {{ recipe.source }}
+          </a>
+        </p>
+        
+        <!-- Ingredients -->
+        <h3>Ingredients:</h3>
+        <ul class="ingredients-list">
+          {% for ingredient in recipe.ingredients %}
+            <li>{{ ingredient }}</li>
+          {% endfor %}
+        </ul>
+        
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No recipes found.</p>
+  {% endif %}
 </body>
 </html>

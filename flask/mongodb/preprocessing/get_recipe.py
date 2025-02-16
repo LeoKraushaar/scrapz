@@ -4,8 +4,8 @@ import requests
 import json
 import time
 from pprint import pprint
-from recipe_preprocessing import recipePreprocessing
-from fetch_pantry import fetchPantry
+from mongodb.preprocessing.recipe_preprocessing import recipePreprocessing
+from mongodb.preprocessing.fetch_pantry import fetchPantry
 
 load_dotenv()
 id = os.getenv('APP_ID')
@@ -98,7 +98,7 @@ def findRecipes(query, mealTypes = None, dishTypes = None, cuisineTypes = None, 
 
 
 # Call fetPantry to fetch all user items (food) available
-curInv = fetchPantry()
+#curInv = fetchPantry()
 
 #### To be removed once Front End is implemented ####
 # mealTypes = ["breakfast"]
@@ -108,6 +108,6 @@ curInv = fetchPantry()
 # healthLabels = []
 #excluded = []
 
-recipesArr = findRecipes(curInv, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels)
+#recipesArr = findRecipes(curInv, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels)
 
-recipePreprocessing(json.dumps(recipesArr)) # Convert to JSON string
+#recipePreprocessing(json.dumps(recipesArr)) # Convert to JSON string

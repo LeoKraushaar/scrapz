@@ -2,12 +2,13 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 from pprint import pprint
 import os
+import certifi
 
 class MongoManager:
 
     def __init__(self, db_name:str):
         load_dotenv()
-        self.client = MongoClient(os.getenv('MONGO_URI'))
+        self.client = MongoClient(os.getenv('MONGO_URI'), tlsCAFile=certifi.where())
         self.db = self.client[db_name]
         self.pipeline = []
 
