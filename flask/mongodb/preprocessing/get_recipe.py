@@ -11,7 +11,7 @@ load_dotenv()
 id = os.getenv('APP_ID')
 api_key = os.getenv('API_KEY')
 
-def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels):
+def findRecipes(query, mealTypes = None, dishTypes = None, cuisineTypes = None, dietLabels = None, healthLabels = None):
     # Assume the array holds item arrays, such that they represent the following:
     # [dietLabels, healthLabels, cautions, cuisineType, mealType, dishType]
     #### EXAMPLES ####
@@ -101,13 +101,13 @@ def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLab
 curInv = fetchPantry()
 
 #### To be removed once Front End is implemented ####
-mealTypes = ["breakfast"]
-dishTypes = []
-cuisineTypes = []
-dietLabels = ["high protein"]
-healthLabels = []
+# mealTypes = ["breakfast"]
+# dishTypes = []
+# cuisineTypes = []
+# dietLabels = ["high protein"]
+# healthLabels = []
 #excluded = []
 
-recipesArr = FindRecipes(curInv, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels)
+recipesArr = findRecipes(curInv, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels)
 
 recipePreprocessing(json.dumps(recipesArr)) # Convert to JSON string
