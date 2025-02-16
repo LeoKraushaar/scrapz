@@ -10,7 +10,7 @@ load_dotenv()
 id = os.getenv('APP_ID')
 api_key = os.getenv('API_KEY')
 
-def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels, excluded):
+def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels):
     # Assume the array holds item arrays, such that they represent the following:
     # [dietLabels, healthLabels, cautions, cuisineType, mealType, dishType]
     #### EXAMPLES ####
@@ -73,15 +73,17 @@ def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLab
             base_url += f"health={"-".join(healthLabel.strip().lower().split())}&"
     
     ##### Unsure if this is the correct format for cautions (i.e., unsure if it's for dietary restrictions) #####
-    if excluded:
-        for caution in excluded:
-            if caution.strip() == "":
-                continue
-            base_url += f"excluded={"-".join(caution.strip().lower().split())}&"
+    # if excluded:
+    #     for caution in excluded:
+    #         if caution.strip() == "":
+    #             continue
+    #         base_url += f"excluded={"-".join(caution.strip().lower().split())}&"
     
     # WORKS: test
     #response = requests.get("https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=e02cd94b&app_key=f4a12877af8d3e2fad24f7152087dd77&diet=balanced&diet=high-fiber&cuisineType=Nordic&mealType=Breakfast&dishType=Soup&excluded=nuts&excluded=tree-nuts")
     response = requests.get(base_url)
+    
+    # Testing response and correctness of the base_url
     print(response)
     print(base_url)
     
@@ -95,14 +97,14 @@ def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLab
 
 
 #### To be removed once Front End is implemented ####
-query = ["Chicken     alfredo    ", "Pasta", "", "Italian", "PIzzA", "  ", "  italy     ", "  ", ""] 
+curInv = ["Chicken     alfredo    "] 
 mealTypes = ["Dinner "]
 dishTypes = []
 cuisineTypes = []
 dietLabels = []
 healthLabels = []
-excluded = []
+#excluded = []
 
-recipesArr = FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels, excluded)
+recipesArr = FindRecipes(curInv, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels)
 
 recipePreprocessing(json.dumps(recipesArr)) # Convert to JSON string
