@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Scrapz{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Lora&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+  <header class="site-header">
+    <!-- 
+      To hide the logo text, add the class "hide-logo" here.
+      Example: <h1 class="site-logo jersey-25-regular hide-logo">scrapz</h1>
+    -->
+    <h1 class="site-logo jersey-25-regular">scrapz</h1>
+    <button class="menu-btn" id="menu-btn">☰</button>
+  </header>
+
+  <!-- Full-screen Overlay Menu -->
+  <div class="overlay" id="menu-overlay">
+    <span class="close-btn" id="close-btn">✖</span>
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('pantry') }}">Demo</a>
+    <a href="{{ url_for('pantry') }}">GitHub</a>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}
+    <!-- Child templates will inject content here -->
+    {% endblock %}
+  </main>
+
+  <!-- External JS for Menu Toggle -->
+  <script src="{{ url_for('static', filename='menu.js') }}"></script>
+</body>
+</html>

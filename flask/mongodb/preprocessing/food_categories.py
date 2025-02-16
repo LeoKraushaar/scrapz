@@ -64,5 +64,24 @@ food_categories = {
         "perch", "pollock", "pompano", "salmon", "sardine", "scallop", "shrimp", "snapper",
         "squid", "swordfish", "tilapia", "trout", "tuna", "turbot", "whiting", "whitefish",
         "kingfish", "amberjack", "bluefish", "monkfish", "pike", "sturgeon", "tarpon"
+    ],
+    "condiments/ingredients" : [
+    "salt", "pepper", "chili powder", "cumin", "coriander", "turmeric", "garlic powder", 
+    "onion powder", "ginger", "cinnamon", "nutmeg", "clove", "cardamom", "allspice", 
+    "mustard", "fennel", "bay leaves", "oregano", "thyme", "basil", "rosemary", "sage", 
+    "marjoram", "dill", "parsley", "tarragon", "chives", "vanilla", "almond extract", 
+    "maple syrup", "honey", "molasses", "sugar", "agave syrup", "stevia", "baking soda", 
+    "baking powder", "cornstarch", "yeast", "gelatin", "pectin", "vinegar", "soy sauce", 
+    "fish sauce", "oyster sauce", "Worcestershire sauce", "hoisin sauce", "teriyaki sauce", 
+    "hot sauce", "mustard", "ketchup", "mayonnaise", "BBQ sauce", "ranch dressing", 
+    "Caesar dressing", "Italian dressing", "sesame oil", "olive oil", "vegetable oil", 
+    "canola oil", "peanut oil", "coconut oil", "avocado oil", "grapeseed oil", "butter", 
+    "ghee", "shortening", "lard", "cream", "evaporated milk", "condensed milk", "cocoa powder", 
+    "chocolate", "soy lecithin", "miso", "tahini", "peanut butter", "almond butter", 
+    "coconut milk", "seeds", "flour", "rice", "pasta", "noodles", "lentils", "beans", 
+    "chickpeas", "peas", "cornmeal", "oats", "quinoa", "barley", "bulgur", "couscous", 
+    "polenta", "breadcrumbs", "stock", "broth", "arrowroot", "gelatin", "tapioca", 
+    "nutmeg", "anise", "saffron", "fenugreek", "curry powder", "horseradish", "wasabi", 
+    "sesame", "poppy seeds", "chia seeds", "flax seeds"
     ]
 }
