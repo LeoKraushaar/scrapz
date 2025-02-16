@@ -10,10 +10,11 @@ def recipe_preprocessing(recipe):
     load_dotenv()
     client = MongoClient(os.getenv('MONGO_URI'))
     db = client['SmartCart'] # Database name
-    collection = db['items'] # Collection name
+    collection = db['recipes'] # Collection name
     
     with open(recipe, "r") as file:
-        data = json.load(file) # converts JSON to py dictionary
+        recipe = file.read()
+    data = json.loads(recipe) # converts JSON to py dictionary
 
     recipes = []
     for hit in data["hits"]:  # Loop through each recipe entry
@@ -55,5 +56,5 @@ def recipe_preprocessing(recipe):
     return recipes
 
 
-data = recipe_preprocessing("recipe_test.json")
+data = recipe_preprocessing("flask/mongo/preprocessing/recipe_test.json")
 #pprint(data)
