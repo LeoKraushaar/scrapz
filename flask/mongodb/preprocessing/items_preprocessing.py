@@ -1,42 +1,63 @@
 import os
-import json
+import datetime
+import inflect
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from food_categories import food_categories
 
-def items_preprocessing(file, name):
+def IsOwned(foodId):
+    '''
+    Checks if the item is in user inventory.
+    Returns true if yes, else false.
+    '''
     load_dotenv()
     client = MongoClient(os.getenv('MONGO_URI'))
     db = client['SmartCart']
-    collection = db['items']
+    collection = db['useritems']
+    if collection.find_one({"foodId": foodId}):
+        return True
+    else:
+        return False
 
-    with open(file, 'r') as file:
-        food = file.read()
-    data = json.loads(food)
-    all_items = data['hints']
-    individual_items = []
-    for item in all_items:
-        individual_item = item['food']
-        individual_item['quantity_owned'] = 0
-        individual_item['expiry date'] = 'MM-DD-YYYY'
-        
-        if individual_item['category'] == 'Generic foods':
-            if name in food_categories['vegetables']:
-                individual_item['category'] = 'vegetable'
-            elif name in food_categories['fruits']:
-                individual_item['category'] = 'fruit'
-            elif name in food_categories['meat']:
-                individual_item['category'] = 'meat'
-            elif name in food_categories['dairy']:
-                individual_item['category'] = 'dairy'
-            elif name in food_categories['seafood']:
-                individual_item['category'] = 'seafood'
-            elif name in food_categories['condiments/ingredients']:
-                individual_item['category'] = 'condiments/ingredients'
-        individual_items.append(individual_item)
+
+def ProcessItems(dict):
+    '''
+    Adds the processed item into db.
+    '''
+    load_dotenv()
+    client = MongoClient(os.getenv('MONGO_URI'))
+    db = client['SmartCart']
+    collection = db['useritems']
+
+    food = dict['hints'][0]['food']
+    item = {}
+    item['foodId'] = food['foodId']
+    item['name'] = food['label']
+    item['category'] = 'Others'
+    item['quantity'] = 0
+    item['expiryDate'] = datetime.datetime.now()
+    item['Carbohydrate(g)'] = food['nutrients']['CHOCDF']
+    item['Energy(kcal)'] = food['nutrients']['ENERC_KCAL']
+    item['Fat(g)'] = food['nutrients']['FAT']
+    item['Fiber(g)'] = food['nutrients']['FIBTG']
+    item['Protein(g)'] = food['nutrients']['PROCNT']
+    
+    p = inflect.engine() # Helps convert nouns into singular form
+    if any(p.singular_noun(item['name'].lower()) in vegetable.lower() for vegetable in food_categories['vegetables']):
+        item['category'] = 'vegetable'
+    elif any(p.singular_noun(item['name'].lower()) in fruit.lower() for fruit in food_categories['fruits']):
+        item['category'] = 'fruit'
+    elif any(p.singular_noun(item['name'].lower()) in meat.lower() for meat in food_categories['meat']):
+        item['category'] = 'meat'
+    elif any(p.singular_noun(item['name'].lower()) in dairy.lower() for dairy in food_categories['dairy']):
+        item['category'] = 'dairy'
+    elif any(p.singular_noun(item['name'].lower()) in seafood.lower() for seafood in food_categories['seafood']):
+        item['category'] = 'seafood'
+    elif any(p.singular_noun(item['name'].lower()) in condiments.lower() for condiments in food_categories['condiments/ingredients']):
+        item['category'] = 'condiments/ingredients'
 
     try:
-        collection.insert_many(individual_items, ordered=False)
+        collection.insert_one(item)
         print("Added successfully!")
     except Exception as e:
         print(e)
