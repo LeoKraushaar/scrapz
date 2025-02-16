@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template
-from mongo.mongo_manager import MongoManager
+from mongodb.mongo_manager import MongoManager
 from constants import *
 
 app = Flask(__name__)
