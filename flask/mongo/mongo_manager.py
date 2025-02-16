@@ -14,16 +14,6 @@ class MongoManager:
     def getCollection(self, coll_name:str):
         return self.db[coll_name]
 
-    def close(self):
-        """Closes the MongoDB connection"""
-        self.client.close()
-        print("MongoDB connection closed.")
-
-    def insert_many(self, coll_name: str, data: list, ordered=True):
-        """Inserts multiple documents into a collection with optional 'ordered' argument"""
-        collection = self.getCollection(coll_name)
-        return collection.insert_many(data, ordered=ordered)
-    
     def queryCollection(self, coll_name:str, proj={}, filt={}):
         coll = self.getCollection(coll_name)
         results = coll.find(filt, proj)
@@ -207,6 +197,9 @@ class MongoManager:
         }
 
         return [stage]
+    
+    def close(self):
+        self.client.close()
 
 if __name__ == '__main__':
     mongo = MongoManager()
