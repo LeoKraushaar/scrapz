@@ -37,7 +37,7 @@ def findRecipes(query, mealTypes = None, dishTypes = None, cuisineTypes = None, 
                 # q.split() splits the string into an array of words
                 # "-".join() joins the array of words into a string with "-" as the separator (API formatted)
                 # f"q={...}&" formats the string into the query format for the API
-            base_url += f"q={"-".join(q.strip().lower().split())}&"
+            base_url += f"q={'-'.join(q.strip().lower().split())}&"
         
         # Add the app_id and app_key to the base_url after the query (format of the API req.)
         base_url += f"app_id={id}&"
@@ -47,31 +47,31 @@ def findRecipes(query, mealTypes = None, dishTypes = None, cuisineTypes = None, 
         for meal in mealTypes:
             if meal.strip() == "":
                 continue
-            base_url += f"mealType={"-".join(meal.strip().lower().split())}&"
+            base_url += f"mealType={'-'.join(meal.strip().lower().split())}&"
     
     if dishTypes:
         for dish in dishTypes:
             if dish.strip() == "":
                 continue
-            base_url += f"dishType={"-".join(dish.strip().lower().split())}&"
+            base_url += f"dishType={'-'.join(dish.strip().lower().split())}&"
     
     if cuisineTypes:
         for cuisine in cuisineTypes:
             if cuisine.strip() == "":
                 continue
-            base_url += f"cuisineType={"-".join(cuisine.strip().lower().split())}&"
+            base_url += f"cuisineType={'-'.join(cuisine.strip().lower().split())}&"
     
     if dietLabels:
         for dietLabel in dietLabels:
             if dietLabel.strip() == "":
                 continue
-            base_url += f"diet={"-".join(dietLabel.strip().lower().split())}&"
+            base_url += f"diet={'-'.join(dietLabel.strip().lower().split())}&"
             
     if healthLabels:
         for healthLabel in healthLabels:
             if healthLabel.strip() == "":
                 continue
-            base_url += f"health={"-".join(healthLabel.strip().lower().split())}&"
+            base_url += f"health={'-'.join(healthLabel.strip().lower().split())}&"
     
     ##### Unsure if this is the correct format for cautions (i.e., unsure if it's for dietary restrictions) #####
     # if excluded:
