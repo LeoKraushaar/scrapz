@@ -26,15 +26,9 @@ def get_recipe():
     recipesArr = findRecipes(pantryItems, list(meal_type), list(diet), list(max_cook_time))
 
     # Preprocess the recipes (adjust ingredients, etc.)
-    recipePreprocessing(pantryItems, json.dumps(recipesArr))
+    recipePreprocessing(json.dumps(recipesArr))
 
     # Save the recipes to MongoDB or query them if already saved
-=========
-    # Preprocess the recipes
-    recipePreprocessing(json.dumps(recipesArr))
-    
-    # Adjust the template and context as needed
->>>>>>>>> Temporary merge branch 2
     recipes = mongo.queryCollection(RECIPES)
 
     # Return the rendered recipe page with the recipes data
