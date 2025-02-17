@@ -16,6 +16,7 @@ def recipePreprocessing(recipe):
     collection = db['recipes'] # Collection name
     userCollection = db['useritems']
 
+    # Clear the collection before adding new data
     collection.delete_many({})
     data = json.loads(recipe) # converts JSON to py dictionary
 
@@ -47,13 +48,13 @@ def recipePreprocessing(recipe):
             for doc in recipe["ingredients"]:
                 result = userCollection.find_one({"foodId": doc["foodId"]})
                 if result is None:
-                    updatedRecipe["missingIngredients"].append(doc["food"])
+                    updatedRecipe["missingIngredients"].append(doc["food"].title())
                 else:
-                    updatedRecipe["availableIngredients"].append(doc["food"])
+                    updatedRecipe["availableIngredients"].append(doc["food"].title())
             
             try:
                 collection.insert_one(updatedRecipe)
-                print("Added Successfully")
+                #print("Added Successfully")
             except Exception as e:
                 print(e)
     
