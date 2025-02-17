@@ -2,6 +2,7 @@ import os
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
 from mongodb.preprocessing.get_items import FindItems
 from mongodb.preprocessing.items_preprocessing import ProcessUnknownItems, ProcessItems
+from mongodb.preprocessing.pantry_actions import update_item, delete_item
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import certifi
@@ -47,3 +48,25 @@ def view_pantry():
 
     # Render the template and pass pantry items
     return render_template('pantry.html', pantry_items=pantry_items)
+
+@pantry_bp.route('/pantry/update/<item_name>', methods=['POST'])
+def update_pantry_item(item_name):
+    new_quantity = request.form.get('quantity')
+    new_expiry_date = request.form.get('expiry_date')
+
+    # If no new values are provided, don't update
+    if not new_quantity and not new_expiry_date:
+        return redirect(url_for('pantry.view_pantry'))
+
+    # Update item
+    update_item(item_name, newQuantity=new_quantity, newDate=new_expiry_date)
+    
+    return redirect(url_for('pantry.view_pantry'))
+
+# Route to delete an item
+@pantry_bp.route('/pantry/delete/<item_name>', methods=['POST'])
+def delete_pantry_item(item_name):
+    # Delete item
+    delete_item(item_name)
+    
+    return redirect(url_for('pantry.view_pantry'))
