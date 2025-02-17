@@ -23,7 +23,7 @@ def get_recipe():
     max_cook_time = request.form.get('max_cook_time', '')
 
     # Fetch recipes from Edamam API
-    recipesArr = findRecipes(pantryItems, list(meal_type), list(diet), list(max_cook_time))
+    recipesArr = findRecipes(pantryItems, mealTypes=[meal_type], healthLabels=[diet], time=[max_cook_time])
 
     # Preprocess the recipes (adjust ingredients, etc.)
     recipePreprocessing(json.dumps(recipesArr))
