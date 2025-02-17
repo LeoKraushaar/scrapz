@@ -1,10 +1,11 @@
 import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
+import certifi
 
 def openClient():
     load_dotenv()
-    client = MongoClient(os.getenv('MONGO_URI'))
+    client = MongoClient(os.getenv('MONGO_URI'), tlsCAFile=certifi.where())
     db = client['SmartCart']
     collection = db['useritems']
     return client, collection

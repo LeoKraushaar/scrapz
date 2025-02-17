@@ -4,6 +4,7 @@ from mongodb.preprocessing.get_items import FindItems
 from mongodb.preprocessing.items_preprocessing import ProcessUnknownItems, ProcessItems
 from pymongo import MongoClient
 from dotenv import load_dotenv
+import certifi
 
 # Create a blueprint for the pantry route
 pantry_bp = Blueprint('pantry', __name__)
@@ -31,7 +32,7 @@ def pantry():
 @pantry_bp.route('/pantry/view')
 def view_pantry():
     load_dotenv()
-    client = MongoClient(os.getenv('MONGO_URI'))
+    client = MongoClient(os.getenv('MONGO_URI'), tlsCAFile=certifi.where())
     db = client['SmartCart']
     collection = db['useritems']
 
