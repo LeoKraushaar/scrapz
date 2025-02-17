@@ -79,9 +79,13 @@ def update_pantry_item(item_name):
     # If no new values are provided, don't update
     if not new_quantity and not new_expiry_date:
         return redirect(url_for('pantry.view_pantry'))
-
-    # Update item
-    update_item(item_name, newQuantity=new_quantity, newDate=new_expiry_date)
+    elif new_quantity == '':
+        update_item(item_name, newQuantity=None, newDate=new_expiry_date)
+    elif new_expiry_date == '':
+        update_item(item_name, newQuantity=new_quantity, newDate=None)
+    else:
+        # Update item
+        update_item(item_name, newQuantity=new_quantity, newDate=new_expiry_date)
     
     return redirect(url_for('pantry.view_pantry'))
 
@@ -92,6 +96,7 @@ def delete_pantry_item(item_name):
     delete_item(item_name)
     
     return redirect(url_for('pantry.view_pantry'))
+
 
 @pantry_bp.route('/recipe')
 def recipe():
