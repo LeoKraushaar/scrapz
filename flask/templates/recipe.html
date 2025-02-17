@@ -51,6 +51,12 @@
                     <li>{{ ingredient }}</li>
                 {% endfor %}
             </ul>
+            <p><strong>Missing Ingredients:</strong></p>
+            <ul>
+                {% for ingredient in recipe.missingIngredients %}
+                    <li>{{ ingredient }}</li>
+                {% endfor %}
+            </ul>
         </li>
         {% endfor %}
     </ul>
