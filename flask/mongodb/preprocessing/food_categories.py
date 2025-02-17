@@ -23,7 +23,7 @@ food_categories = {
         "camel", "goose", "grouse", "dove", "cornish hen", "rocky mountain oysters", "snipe",
         "woodcock", "lizard", "antelope", "ibex", "caribou", "porcupine", "nutria", "muskrat",
         "bushmeat", "iguana", "shark", "whale", "seal", "yakitori", "sweetbreads", "tripe",
-        "ox", "offal", "giblets", "head cheese", "blood sausage", "liver", "heart", "kidney",
+        "ox", "offal", "giblets", "blood sausage", "liver", "heart", "kidney",
         "tongue", "lungs", "marrow", "spleen", "chitlins", "pork belly", "flank steak", "tenderloin",
         "sirloin", "ribeye", "porterhouse", "t-bone", "chuck roast", "brisket", "short ribs",
         "oxtail", "skirt steak", "hanger steak", "shoulder", "shank", "hocks", "rump", "round",

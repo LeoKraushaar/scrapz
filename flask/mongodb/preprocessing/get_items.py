@@ -8,6 +8,15 @@ OK =  200
 id = os.getenv('API_USERNAME')
 api_key = os.getenv('API_KEY')
 
+def FindKnownAs(name=None):
+    if name:
+        endpoint = f"https://api.edamam.com/api/food-database/v2/parser?app_id={id}&app_key={api_key}&ingr={name}&nutrition-type=cooking"
+    response = requests.get(endpoint)
+    if response.status_code == OK and len(response.json()['parsed']) > 0:
+        return response.json()['parsed'][0]['food']['knownAs']
+    else:
+        return 1
+
 def FindItems(name=None, upc=None):
     '''
     Finds the food item on Edamam API.
@@ -27,5 +36,3 @@ def FindItems(name=None, upc=None):
     else:
         print(response)
         print('Error')
-
-

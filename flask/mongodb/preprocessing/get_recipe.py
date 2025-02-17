@@ -4,8 +4,8 @@ import requests
 import json
 import time
 from pprint import pprint
-from mongodb.preprocessing.recipe_preprocessing import recipePreprocessing
-from mongodb.preprocessing.fetch_pantry import fetchPantry
+# from mongodb.preprocessing.recipe_preprocessing import recipePreprocessing
+# from mongodb.preprocessing.fetch_pantry import fetchPantry
 
 load_dotenv()
 id = os.getenv('APP_ID_C')
@@ -24,17 +24,26 @@ def findRecipes(query, mealTypes = None, healthLabels = None, time = None):
     # "https://api.edamam.com/api/recipes/v2?type=public&"
     
     if query: # If non-empty arr, continue
-        for q in query:
-            # Edgecase: If the user input is empty (input blank), skip (IFF, there is no dropdown)
-            if q.strip() == "":
+        base_url += "&q="
+        # for q in query:
+        #     # Edgecase: If the user input is empty (input blank), skip (IFF, there is no dropdown)
+        #     if q.strip() == "":
+        #         continue
+        #     ### Logic of f"q={"-".join(q.strip().lower().split())}&" ###
+        #         # q.strip() removes leading/trailing whitespaces
+        #         # q.lower() converts the string to lowercase
+        #         # q.split() splits the string into an array of words
+        #         # "-".join() joins the array of words into a string with "-" as the separator (API formatted)
+        #         # f"q={...}&" formats the string into the query format for the API
+        #     base_url += f"&q={'-'.join(q.strip().lower().split())}"
+
+        for i in range(len(query)):
+            if query[i].strip() == "":
                 continue
-            ### Logic of f"q={"-".join(q.strip().lower().split())}&" ###
-                # q.strip() removes leading/trailing whitespaces
-                # q.lower() converts the string to lowercase
-                # q.split() splits the string into an array of words
-                # "-".join() joins the array of words into a string with "-" as the separator (API formatted)
-                # f"q={...}&" formats the string into the query format for the API
-            base_url += f"&q={'-'.join(q.strip().lower().split())}"
+            if i == 0:
+                base_url += f"{query[i].replace(' ', '%20')}"
+            else:
+                base_url += f"%20or%20{query[i].replace(' ', '%20')}"
         
         # Add the app_id and app_key to the base_url after the query (format of the API req.)
         base_url += f"&app_id={id}"
