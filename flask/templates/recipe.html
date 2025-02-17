@@ -48,18 +48,24 @@
         <div class="recipe-info">
           <h3 class="recipe-name">{{ recipe.label }}</h3>
           <p><strong>Source:</strong> <a href="{{ recipe.url }}" target="_blank">{{ recipe.source }}</a></p>
-          <p><strong>Available Ingredients:</strong></p>
-          <ul class="available-ingredients">
-            {% for ingredient in recipe.availableIngredients %}
-              <li>{{ ingredient }}</li>
-            {% endfor %}
-          </ul>
-          <p><strong>Missing Ingredients:</strong></p>
-          <ul class="missing-ingredients">
-            {% for ingredient in recipe.missingIngredients %}
-              <li>{{ ingredient }}</li>
-            {% endfor %}
-          </ul>
+          <div class="recipe-ingredients">
+            <div class="ingredients available">
+              <p><strong>Available Ingredients:</strong></p>
+              <ul>
+                {% for ingredient in recipe.availableIngredients %}
+                  <li>{{ ingredient }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="ingredients missing">
+              <p><strong>Missing Ingredients:</strong></p>
+              <ul>
+                {% for ingredient in recipe.missingIngredients %}
+                  <li>{{ ingredient }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
         </div>
       </li>
     {% endfor %}
