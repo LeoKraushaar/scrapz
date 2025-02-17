@@ -5,7 +5,10 @@ from dotenv import load_dotenv
 from pprint import pprint
 from pymongo import MongoClient
 
-def recipePreprocessing(recipe):
+def recipePreprocessing(curInv, recipe):
+    # curInv: a list of the current inventory
+    # recipe: a JSON object containing the recipe data
+
     load_dotenv()
     client = MongoClient(os.getenv('MONGO_URI'), tlsCAFile=certifi.where())
     db = client['SmartCart'] # Database name
@@ -29,7 +32,9 @@ def recipePreprocessing(recipe):
                 "healthLabels" : recipe["healthLabels"],
                 "ingredientLines" : recipe["ingredientLines"],
                 # Go through the ingredients to ensure the dictionary is flattened
-                "ingredients": [ingredient["food"] for ingredient in recipe["ingredients"]],
+                "allIngredients": [ingredient["food"] for ingredient in recipe["ingredients"]],
+                "availableIngredients" : [ingredient for ingredient in recipe["ingredients"] if ingredient["food"].strip().lower() in curInv],
+                "missingIngredients" : [ingredient for ingredient in recipe["ingredients"] if ingredient["food"].strip().lower() not in curInv],
                 "calories" : recipe["calories"],
                 "cuisineType" : recipe["cuisineType"],
                 "mealType" : recipe["mealType"],
