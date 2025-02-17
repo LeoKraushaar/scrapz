@@ -4,21 +4,49 @@
 
 {% block content %}
 <div class="container">
+  <!-- Top Section -->
   <div class="half top-half">
-    <div>
-      <p></p>
-      <a href="{{ url_for('pantry.pantry') }}" class="demo-btn">Try scrapz now</a>
+    <div class="left-content">
+      <h1 class="home-description">Unlock the Potential of Your Pantry</h1>
+      <p class="home-subtext">Find recipes you love based on ingredients you own</p>
+      <a href="{{ url_for('pantry.pantry') }}" class="demo-btn">Try Scrapz now</a>
     </div>
-    <div>
-      <a href="{{ url_for('load_recipe.get_recipe') }}" class="demo-btn">Try recipe demo</a1>
+    <div class="right-content">
+      <img src="{{ url_for('static', filename='images/mascot.png') }}" alt="Mascot asset">
     </div>
   </div>
+  
+  <!-- Bottom Section -->
   <div class="half bottom-half">
-    <h2></h2>
+    <div class="bottom-header">
+      <h2 class="jersey-25-regular">What is Scrapz?</h2>
+      <p class="webapp-description">
+        Scrapz is your ultimate pantry tracker and recipe finder. Log your ingredients and discover delicious recipes tailored to what you have. Search for recipes based on your dietary preferences and cooking time. Scrapz helps you make the most out of your pantry and save time in the kitchen. Take control of your pantry and cook smarter, saving money while reducing waste.
+      </p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <img src="{{ url_for('static', filename='images/egg.png') }}" alt="Egg">
+        <h3 class="jersey-25-regular feature-caption">Never Let Ingredients Go to Waste</h3>
+        <p class="cantarell-regular feature-description">
+          Make the most out of your pantry by finding recipes that work with what you have. Start by logging your ingredients and let Scrapz do the rest.
+        </p>
+      </div>
+      <div class="feature">
+        <img src="{{ url_for('static', filename='images/clock.png') }}" alt="Clock">
+        <h3 class="jersey-25-regular feature-caption">Save Time in the Kitchen</h3>
+        <p class="cantarell-regular feature-description">
+          Scrapz allows you to find recipes that match your cooking time. Spend less time in the kitchen and more time enjoying your meals. 
+        </p>
+      </div>
+      <div class="feature">
+        <img src="{{ url_for('static', filename='images/chef.png') }}" alt="Chef">
+        <h3 class="jersey-25-regular feature-caption">Personalized Recipe Suggestions</h3>
+        <p class="cantarell-regular feature-description">
+          Discover recipes tailored to your food preferences and dietary needs. Scrapz helps you find recipes that you love and enjoy.
+        </p>
+      </div>
+    </div>
   </div>
 </div>
-
-<footer>
-  <p>&copy; 2025 Scrapz. All rights reserved.</p>
-</footer>
 {% endblock %}
