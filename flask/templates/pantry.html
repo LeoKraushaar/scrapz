@@ -43,6 +43,8 @@
       </li>
     {% endfor %}
   </ul>   
+  <!-- Button to go to the recipe page -->
+  <a href="{{ url_for('pantry.recipe') }}" class="btn btn-secondary">Go to Recipes</a> 
 </div>
 
 <script src="{{ url_for('static', filename='add.js') }}"></script>
