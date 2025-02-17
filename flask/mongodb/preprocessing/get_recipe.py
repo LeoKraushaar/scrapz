@@ -41,21 +41,25 @@ def findRecipes(query, mealTypes = None, healthLabels = None, time = None):
         base_url += f"&app_key={api_key}"
     
     if mealTypes:
-        for meal in mealTypes:
-            if meal.strip() == "":
-                continue
-            base_url += f"&mealType={'-'.join(meal.strip().lower().split())}"
+        # for meal in mealTypes:
+        #     if meal.strip() == "":
+        #         continue
+        #     base_url += f"&mealType={'-'.join(meal.strip().lower().split())}"
+        if mealTypes[0] != "":
+            base_url += f"&mealType={mealTypes[0]}"
             
     if healthLabels:
-        for healthLabel in healthLabels:
-            if healthLabel.strip() == "":
-                continue
-            base_url += f"&health={'-'.join(healthLabel.strip().lower().split())}"
+        # for healthLabel in healthLabels:
+        #     if healthLabel.strip() == "":
+        #         continue
+        #     base_url += f"&health={'-'.join(healthLabel.strip().lower().split())}"
+        if healthLabels[0] != "":
+            base_url += f"&health={healthLabels[0]}"
     
     # time = ["num"] then convert to range format (0-num)
     if time and time[0].strip() != "":
         if (time[0].strip() != "") and (int(time[0].strip()) > 0):
-            base_url += f"&time=0-{int(time[0].strip())}"
+            base_url += f"&time={int(time[0].strip())}"
 
     # WORKS: test
     #response = requests.get("https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=e02cd94b&app_key=f4a12877af8d3e2fad24f7152087dd77&diet=balanced&diet=high-fiber&cuisineType=Nordic&mealType=Breakfast&dishType=Soup&excluded=nuts&excluded=tree-nuts")

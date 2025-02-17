@@ -16,6 +16,7 @@ def recipePreprocessing(recipe):
     collection = db['recipes'] # Collection name
     userCollection = db['useritems']
 
+    collection.delete_many({})
     data = json.loads(recipe) # converts JSON to py dictionary
 
     for hit in data:  # Loop through each recipe entry
