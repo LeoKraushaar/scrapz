@@ -11,20 +11,17 @@ load_dotenv()
 id = os.getenv('APP_ID_C')
 api_key = os.getenv('API_KEY_C')
 
-def findRecipes(query, mealTypes = None, dishTypes = None, cuisineTypes = None, dietLabels = None, healthLabels = None):
+def findRecipes(query, mealTypes = None, healthLabels = None, time = None):
     # Assume the array holds item arrays, such that they represent the following:
     # [dietLabels, healthLabels, cautions, cuisineType, mealType, dishType]
     #### EXAMPLES ####
     # query: a str (required)***
-    # dietLabels: [balanced, high-fiber, high-protein, low-carb, low-fat, low-sodium]
-    # healthLabels: [sugar-conscious, vegetarian, peanut-free, tree-nut-free]
-    # cautions: [nuts, treenuts]
-    # cuisineType: [american, asian, italian, mexican]
     # mealType: [breakfast, lunch, dinner, snack]
-    # dishType: [desserts, main-course, side-dish, appetizers]
+    # healthLabels: [sugar-conscious, vegetarian, peanut-free, tree-nut-free]
+    # time: [5-15 (RANGE: MIN-MAX), 15+ (MIN), 30 (MAX)]
     
-    base_url = f"https://api.edamam.com/api/recipes/v2?type=public&"
-    #"https://api.edamam.com/api/recipes/v2?type=public&"
+    base_url = f"https://api.edamam.com/api/recipes/v2?type=public"
+    # "https://api.edamam.com/api/recipes/v2?type=public&"
     
     if query: # If non-empty arr, continue
         for q in query:
@@ -37,49 +34,29 @@ def findRecipes(query, mealTypes = None, dishTypes = None, cuisineTypes = None, 
                 # q.split() splits the string into an array of words
                 # "-".join() joins the array of words into a string with "-" as the separator (API formatted)
                 # f"q={...}&" formats the string into the query format for the API
-            base_url += f"q={'-'.join(q.strip().lower().split())}&"
+            base_url += f"&q={'-'.join(q.strip().lower().split())}"
         
         # Add the app_id and app_key to the base_url after the query (format of the API req.)
-        base_url += f"app_id={id}&"
-        base_url += f"app_key={api_key}&"
+        base_url += f"&app_id={id}"
+        base_url += f"&app_key={api_key}"
     
     if mealTypes:
         for meal in mealTypes:
             if meal.strip() == "":
                 continue
-            base_url += f"mealType={'-'.join(meal.strip().lower().split())}&"
-    
-    if dishTypes:
-        for dish in dishTypes:
-            if dish.strip() == "":
-                continue
-            base_url += f"dishType={'-'.join(dish.strip().lower().split())}&"
-    
-    if cuisineTypes:
-        for cuisine in cuisineTypes:
-            if cuisine.strip() == "":
-                continue
-            base_url += f"cuisineType={'-'.join(cuisine.strip().lower().split())}&"
-    
-    if dietLabels:
-        for dietLabel in dietLabels:
-            if dietLabel.strip() == "":
-                continue
-            base_url += f"diet={'-'.join(dietLabel.strip().lower().split())}&"
+            base_url += f"&mealType={'-'.join(meal.strip().lower().split())}"
             
     if healthLabels:
         for healthLabel in healthLabels:
             if healthLabel.strip() == "":
                 continue
-            base_url += f"health={'-'.join(healthLabel.strip().lower().split())}&"
+            base_url += f"&health={'-'.join(healthLabel.strip().lower().split())}"
     
-    ##### Unsure if this is the correct format for cautions (i.e., unsure if it's for dietary restrictions) #####
-    # if excluded:
-    #     for caution in excluded:
-    #         if caution.strip() == "":
-    #             continue
-    #         base_url += f"excluded={"-".join(caution.strip().lower().split())}&"
-    
+    # time = ["num"] then convert to range format (0-num)
+    if time and time[0].strip() != "":
+        if (time[0].strip() != "") and (int(time[0].strip()) > 0):
+            base_url += f"&time=0-{int(time[0].strip())}"
+
     # WORKS: test
     #response = requests.get("https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=e02cd94b&app_key=f4a12877af8d3e2fad24f7152087dd77&diet=balanced&diet=high-fiber&cuisineType=Nordic&mealType=Breakfast&dishType=Soup&excluded=nuts&excluded=tree-nuts")
     response = requests.get(base_url)
@@ -102,12 +79,9 @@ def findRecipes(query, mealTypes = None, dishTypes = None, cuisineTypes = None, 
 
 #### To be removed once Front End is implemented ####
 # mealTypes = ["breakfast"]
-# dishTypes = []
-# cuisineTypes = []
-# dietLabels = ["high protein"]
 # healthLabels = []
-#excluded = []
+# time = []
 
-#recipesArr = findRecipes(curInv, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels)
+#recipesArr = findRecipes(curInv, mealTypes, healthLabels, time)
 
 #recipePreprocessing(json.dumps(recipesArr)) # Convert to JSON string
