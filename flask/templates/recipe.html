@@ -1,66 +1,70 @@
 {% extends "base.html" %}
 
-{% block title %}Recipe List{% endblock %}
+{% block title %}Recipes - Scrapz{% endblock %}
 
 {% block content %}
-<h1>Recipe Results</h1>
+<div class="recipe-header">
+  <h1>Recipes</h1>
+  <p>Discover your next meal idea</p>
+</div>
 
-<!-- Form to filter recipes -->
-<form method="POST" action="{{ url_for('load_recipe.get_recipe') }}">
-    <div class="form-group">
-        <label for="meal_type">Meal Type:</label>
-        <select name="meal_type" id="meal_type" class="form-control">
-            <option value="">Any</option>
-            <option value="breakfast">Breakfast</option>
-            <option value="lunch">Lunch</option>
-            <option value="dinner">Dinner</option>
-        </select>
+<div class="recipe-data-entry">
+  <form method="POST" action="{{ url_for('load_recipe.get_recipe') }}" class="horizontal-add-item-form">
+    <div class="data-group">
+      <span class="footer-label">Meal Type:</span>
+      <select name="meal_type" id="meal_type" class="form-control">
+        <option value="">Any</option>
+        <option value="breakfast">Breakfast</option>
+        <option value="lunch">Lunch</option>
+        <option value="dinner">Dinner</option>
+      </select>
     </div>
-
-    <div class="form-group">
-        <label for="diet">Diet Restrictions:</label>
-        <select name="diet" id="diet" class="form-control">
-            <option value="">None</option>
-            <option value="dairy-free">Dairy-Free</option>
-            <option value="gluten-free">Gluten-Free</option>
-            <option value="peanut-free">Peanut-Free</option>
-            <option value="vegan">Vegan</option>
-            <option value="vegetarian">Vegetarian</option>
-        </select>
+    <div class="data-group">
+      <span class="footer-label">Diet:</span>
+      <select name="diet" id="diet" class="form-control">
+        <option value="">None</option>
+        <option value="dairy-free">Dairy-Free</option>
+        <option value="gluten-free">Gluten-Free</option>
+        <option value="peanut-free">Peanut-Free</option>
+        <option value="vegan">Vegan</option>
+        <option value="vegetarian">Vegetarian</option>
+      </select>
     </div>
-
-    <div class="form-group">
-        <label for="max_cook_time">Max Cook Time (in minutes):</label>
-        <input type="number" name="max_cook_time" id="max_cook_time" class="form-control" placeholder="Enter max cook time" />
+    <div class="data-group">
+      <span class="footer-label">Max Time:</span>
+      <input type="number" name="max_cook_time" id="max_cook_time" class="form-control" placeholder="Enter max cook time" />
     </div>
-
-    <button type="submit" class="btn btn-primary">Find Recipes</button>
-</form>
+    <button type="submit" class="demo-btn">Find Recipes</button>
+  </form>
+</div>
 
 {% if recipes %}
-    <h2>Recipes</h2>
-    <ul>
-        {% for recipe in recipes %}
-        <li>
-            <h3>{{ recipe.label }}</h3>
-            <img src="{{ recipe.image }}" alt="{{ recipe.label }}" />
-            <p><strong>Source:</strong> <a href="{{ recipe.url }}" target="_blank">{{ recipe.source }}</a></p>
-            <p><strong>Available Ingredients:</strong></p>
-            <ul>
-                {% for ingredient in recipe.availableIngredients %}
-                    <li>{{ ingredient }}</li>
-                {% endfor %}
-            </ul>
-            <p><strong>Missing Ingredients:</strong></p>
-            <ul>
-                {% for ingredient in recipe.missingIngredients %}
-                    <li>{{ ingredient }}</li>
-                {% endfor %}
-            </ul>
-        </li>
-        {% endfor %}
-    </ul>
+  <ul class="recipe-results">
+    {% for recipe in recipes %}
+      <li class="recipe-item">
+        <div class="recipe-img">
+          <img src="{{ recipe.image }}" alt="{{ recipe.label }}" />
+        </div>
+        <div class="recipe-info">
+          <h3 class="recipe-name">{{ recipe.label }}</h3>
+          <p><strong>Source:</strong> <a href="{{ recipe.url }}" target="_blank">{{ recipe.source }}</a></p>
+          <p><strong>Available Ingredients:</strong></p>
+          <ul class="available-ingredients">
+            {% for ingredient in recipe.availableIngredients %}
+              <li>{{ ingredient }}</li>
+            {% endfor %}
+          </ul>
+          <p><strong>Missing Ingredients:</strong></p>
+          <ul class="missing-ingredients">
+            {% for ingredient in recipe.missingIngredients %}
+              <li>{{ ingredient }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
 {% else %}
-    <p>No recipes found.</p>
+  <p></p>
 {% endif %}
 {% endblock %}
