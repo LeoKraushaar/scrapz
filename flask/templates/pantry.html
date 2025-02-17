@@ -40,12 +40,50 @@
           Quantity: {{ item.quantity }}<br>
           Expires: {{ item.expiryDate }}
         </div>
+
+        <!-- Update Button -->
+        <button class="btn btn-warning update-btn" data-item="{{ item.name }}">Update</button>
+        
+        <!-- Delete Button -->
+        <form method="POST" action="{{ url_for('pantry.delete_pantry_item', item_name=item.name) }}" style="display:inline;">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+
+        <!-- Update Fields (Initially Hidden) -->
+        <div class="update-fields" id="update-fields-{{ item.name }}" style="display: none;">
+          <form method="POST" action="{{ url_for('pantry.update_pantry_item', item_name=item.name) }}">
+            <div>
+              <input type="number" name="quantity" placeholder="New Quantity" />
+            </div>
+            <div>
+              <input type="date" name="expiry_date" placeholder="New Expiry Date" />
+            </div>
+            <button type="submit" class="btn btn-success">Update</button>
+          </form>
+        </div>
       </li>
     {% endfor %}
   </ul>   
+
   <!-- Button to go to the recipe page -->
   <a href="{{ url_for('pantry.recipe') }}" class="btn btn-secondary">Go to Recipes</a> 
 </div>
 
-<script src="{{ url_for('static', filename='add.js') }}"></script>
+<script>
+  // Toggle the visibility of the update fields when the update button is clicked
+  document.querySelectorAll('.update-btn').forEach(function(button) {
+    button.addEventListener('click', function() {
+      var itemName = button.getAttribute('data-item');
+      var updateFields = document.getElementById('update-fields-' + itemName);
+      
+      // Toggle visibility of update form
+      if (updateFields.style.display === 'none' || updateFields.style.display === '') {
+        updateFields.style.display = 'block';
+      } else {
+        updateFields.style.display = 'none';
+      }
+    });
+  });
+</script>
+
 {% endblock %}
