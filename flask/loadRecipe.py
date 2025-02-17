@@ -22,7 +22,7 @@ def get_recipe():
     recipesArr = findRecipes(pantryItems)
 
     # Preprocess the recipes
-    recipePreprocessing(json.dumps(recipesArr))
+    recipePreprocessing(pantryItems, json.dumps(recipesArr))
     
     # Adjust the template and context as needed
     recipes = mongo.queryCollection(RECIPES)
