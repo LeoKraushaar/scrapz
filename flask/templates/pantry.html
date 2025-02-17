@@ -4,25 +4,21 @@
 
 {% block content %}
 <div class="pantry-container">
-  <!-- Pantry Header with Bottom Border -->
   <div class="pantry-header">
     <h1>Pantry</h1>
     <p class="pantry-description">Log your ingredients below</p>
   </div>
   
-  <!-- Display Pantry Items -->
   <ul id="item-list" class="item-list">
     {% for item in pantry_items %}
       <li class="pantry-item">
         <div class="item-row">
-          <!-- Photo on the far left -->
           <div class="item-image">
             {% if item.image %}
               <img src="{{ item.image }}" alt="{{ item.name }}">
             {% endif %}
           </div>
           
-          <!-- Item Info to the right of the image -->
           <div class="item-info">
             <div class="item-name">
               <strong>{{ item.name }}</strong>
@@ -34,9 +30,7 @@
             </div>
           </div>
           
-          <!-- Action Buttons on the far right -->
           <div class="item-actions">
-            <!-- Added data attributes for quantity and expiry -->
             <button class="demo-btn btn-update" 
                     data-item="{{ item.name }}" 
                     data-quantity="{{ item.quantity }}" 
@@ -52,10 +46,8 @@
     {% endfor %}
   </ul>   
   
-  <!-- Fixed Footer Data Entry Bar -->
   <footer class="data-entry-footer">
     <div class="footer-left">
-      <!-- Notice: the form action is set initially to the add endpoint -->
       <form method="POST" action="{{ url_for('pantry.pantry') }}" class="horizontal-add-item-form">
         <div class="data-group">
           <span class="footer-label">NAME:</span>
@@ -69,7 +61,6 @@
           <span class="footer-label">EXP:</span>
           <input type="date" name="expiry_date" required>
         </div>
-        <!-- This button text will change dynamically -->
         <button type="submit" class="demo-btn form-submit-btn">Add Item</button>
       </form>
     </div>

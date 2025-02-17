@@ -156,7 +156,6 @@ main {
   margin-bottom: 0;
 }
 
-/* Container & Layout Helpers */
 .container {
   display: flex;
   flex-direction: column;
@@ -169,7 +168,6 @@ main {
   padding: 20px;
 }
 
-/* Top-half (if used) */
 .top-half {
   background-color: var(--white);
   border-bottom: 2px solid var(--black);
@@ -197,7 +195,6 @@ main {
   max-width: 50%;
 }
 
-/* Bottom-half (if used) */
 .bottom-half {
   background-color: var(--beige-200);
   padding: 40px 70px 40px 100px;
@@ -235,7 +232,6 @@ main {
   width: 100%;
 }
 
-/* Features Section */
 .features {
   display: flex;
   justify-content: flex-start;
@@ -271,7 +267,6 @@ main {
   max-width: 400px;
 }
 
-/* Text Styling */
 .home-description {
   font-family: "Cantarell", serif;
   font-size: 2.9rem;
@@ -290,8 +285,6 @@ main {
   margin-bottom: 30px;
 }
 
-/* Demo Button */
-/* Demo Button (common styles) */
 .demo-btn {
   background-color: var(--orange-100);
   border: 2px solid var(--black);
@@ -312,35 +305,31 @@ main {
 
 .btn-update,
 .btn-delete {
-  width: 130px; /* Change as needed */
+  width: 130px; 
 }
 
-/* Delete Button Override */
 .btn-delete {
-  background-color: var(--orange-200); /* Red background */
-  color: var(--black);    /* White text */
+  background-color: var(--orange-200);
+  color: var(--black);   
 }
 
 .btn-update {
-  background-color: var(--orange-100); /* Blue background */
-  color: var(--black);           /* White text */
+  background-color: var(--orange-100); 
+  color: var(--black);          
 }
 
-/* Utility */
 .hide-logo {
   display: none;
 }
 
-/* Pantry Container */
 .pantry-container {
   margin: 0 auto;
   padding-top: 0px;
-  padding-bottom: 100px; /* Added to prevent content from going behind the fixed footer */
+  padding-bottom: 100px; 
   background-color: var(--white);
   text-align: center;
 }
 
-/* Pantry Header (for line below heading/description) */
 .pantry-header {
   width: 100%;
   background-color: var(--white);
@@ -348,8 +337,6 @@ main {
   margin-bottom: 20px;
 }
 
-
-/* Main Heading */
 .pantry-container h1 {
   font-family: "Cantarell", serif;
   font-weight: 700;
@@ -359,7 +346,6 @@ main {
   text-align: center ;
 }
 
-/* Pantry Description */
 .pantry-description {
   font-family: "Cantarell", serif;
   font-size: 1.5rem;
@@ -367,23 +353,21 @@ main {
   margin: 0rem 0 1rem;
 }
 
-/* Add Item Form (centered) */
 .add-item-form {
   margin: 0 auto 20px;
   max-width: 600px;
   text-align: left;
 }
 
-/* Item List */
 .item-list {
   width: 90%;
   margin: 0 auto;
   list-style: none;
   padding: 0;
-  text-align: left; /* Ensures the content inside is left aligned */
+  text-align: left; 
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
-  gap: 20px; /* Space between items */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px; 
 }
 
 .pantry-item {
@@ -391,20 +375,17 @@ main {
   padding: 15px;
   border: 1px solid var(--black);
   border-radius: 5px;
-  background-color: var(--beige-100); /* Updated background color */
+  background-color: var(--beige-100); 
   max-width: 800px;
   font-family: "Cantarell", serif;
 }
 
-
-/* Item Row */
 .item-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* Item Image */
 .item-image img {
   width: 150px;
   height: 150px;
@@ -414,14 +395,12 @@ main {
   display: block;
 }
 
-/* Item Info */
 .item-info {
   flex: 1;
   margin-left: 15px;
   text-align: left;
 }
 
-/* Item Name */
 .item-name {
   font-family: "Cantarell", serif;
   font-size: 2.5rem;
@@ -430,21 +409,17 @@ main {
   margin-bottom: 0.5rem;
 }
 
-/* Item Details */
 .item-details {
   font-size: 1.5rem;
   line-height: 1.4;
 }
 
-/* Action Buttons */
 .item-actions {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* Data Entry Footer (Fixed) */
-/* Data Entry Footer (Fixed) */
 .data-entry-footer {
   position: fixed;
   bottom: 0;
@@ -452,38 +427,35 @@ main {
   right: 0;
   background-color: var(--beige-200);
   padding: 10px 20px;
-  border-top: 2px solid var(--black);  /* Using black for the border */
+  border-top: 2px solid var(--black); 
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
 }
 
-/* Footer Labels */
+
 .footer-label {
   font-family: "Jersey 25", sans-serif;
   font-size: 2rem;
   margin-right: 5px;
 }
 
-/* Horizontal Add Item Form */
 .horizontal-add-item-form {
   display: flex;
   align-items: center;
-  gap: 20px; /* Adds spacing between each group */
+  gap: 20px; 
   flex-wrap: nowrap;
   width: 100%;
-  max-width: 800px; /* Adjust as needed */
+  max-width: 800px; 
 }
 
-/* Data Group: Each label and its corresponding input */
 .data-group {
   display: flex;
   align-items: center;
-  gap: 0px; /* Small gap between label and input */
+  gap: 0px; 
 }
 
-/* Form inputs for the horizontal form */
 .horizontal-add-item-form input[type="text"],
 .horizontal-add-item-form input[type="number"],
 .horizontal-add-item-form input[type="date"] {
@@ -491,10 +463,8 @@ main {
   font-size: 1.4rem;
   border: 2px solid var(--black);
   border-radius: 5px;
-  /* Removed min-width so the input widths remain unchanged */
 }
 
-/* Make quantity input field less wide */
 .horizontal-add-item-form input[name="quantity"] {
   width: 80px;
 }
@@ -503,19 +473,16 @@ main {
   font-family: "Cantarell", serif;
 }
 
-/* Adjust the button within the horizontal form */
 .horizontal-add-item-form .demo-btn {
   height: auto;
   padding: 10px 20px;
   white-space: nowrap;
 }
 
-/* Footer Right Section */
 .footer-right {
   text-align: right;
 }
 
-/* "Go to Recipes" Link */
 .goto-recipes {
   margin-left: 20px;
 }
