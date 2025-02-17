@@ -8,8 +8,8 @@ from mongodb.preprocessing.recipe_preprocessing import recipePreprocessing
 from mongodb.preprocessing.fetch_pantry import fetchPantry
 
 load_dotenv()
-id = os.getenv('APP_ID')
-api_key = os.getenv('API_KEY')
+id = os.getenv('APP_ID_C')
+api_key = os.getenv('API_KEY_C')
 
 def findRecipes(query, mealTypes = None, dishTypes = None, cuisineTypes = None, dietLabels = None, healthLabels = None):
     # Assume the array holds item arrays, such that they represent the following:

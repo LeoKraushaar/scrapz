@@ -4,13 +4,14 @@ import inflect
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from mongodb.preprocessing.food_categories import food_categories
+import certifi
 
 def ProcessItems(dict, quantity, date):
     '''
     Adds the processed item into db.
     '''
     load_dotenv()
-    client = MongoClient(os.getenv('MONGO_URI'))
+    client = MongoClient(os.getenv('MONGO_URI'), tlsCAFile=certifi.where())
     db = client['SmartCart']
     collection = db['useritems']
 
