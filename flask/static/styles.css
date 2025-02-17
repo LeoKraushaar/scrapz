@@ -55,6 +55,7 @@ body {
   color: #333;
 }
 
+/* Header & Navigation */
 .site-header {
   background: var(--yellow);
   height: 80px;
@@ -62,7 +63,7 @@ body {
   border-bottom: 2px solid var(--black);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
 }
 
@@ -95,6 +96,7 @@ body {
   cursor: pointer;
 }
 
+/* Overlay */
 .overlay {
   position: fixed;
   top: 0;
@@ -154,11 +156,10 @@ main {
   margin-bottom: 0;
 }
 
-/* Remove fixed height so container fits content */
+/* Container & Layout Helpers */
 .container {
   display: flex;
   flex-direction: column;
-  /* height property removed to let content define container height */
 }
 
 .half {
@@ -168,7 +169,7 @@ main {
   padding: 20px;
 }
 
-/* Top-half: two-column flex container that fits content */
+/* Top-half (if used) */
 .top-half {
   background-color: var(--white);
   border-bottom: 2px solid var(--black);
@@ -176,7 +177,6 @@ main {
   align-items: center;
   justify-content: space-between;
   padding: 90px 70px 90px 100px;
-  /* No fixed flex ratio, so it fits content naturally */
 }
 
 .left-content {
@@ -188,28 +188,25 @@ main {
 .right-content {
   flex: 1;
   display: flex;
-  justify-content: flex-start; /* Align content to the left */
+  justify-content: flex-start;
   align-items: center;
-  /* Remove padding-left here */
 }
 
 .right-content img {
-  margin-left: 150px; /* This moves the image right without reducing its available width */
+  margin-left: 150px;
   max-width: 50%;
 }
 
-
-/* --- Modified Bottom-half --- */
+/* Bottom-half (if used) */
 .bottom-half {
   background-color: var(--beige-200);
-  padding: 40px 70px 40px 100px;  /* Top, right, bottom, left: left padding now 100px */
+  padding: 40px 70px 40px 100px;
   display: flex;
-  flex-direction: column; /* Stack header above features */
-  align-items: flex-start; /* Left align all items */
+  flex-direction: column;
+  align-items: flex-start;
   text-align: left;
 }
 
-/* Bottom header above features */
 .bottom-header {
   width: 100%;
   margin-bottom: 40px;
@@ -233,30 +230,28 @@ main {
   font-family: "Cantarell", serif;
   font-size: 1.5rem;
   color: var(--black);
-  /* Removed max-width so the text can span fully */
   margin: 0;
   text-align: left;
   width: 100%;
 }
 
-/* Features styling - left aligned */
+/* Features Section */
 .features {
   display: flex;
-  justify-content: flex-start;  /* Start features at the left */
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 20px; /* Adjust gap as needed */
+  gap: 20px;
   width: 100%;
 }
 
 .feature {
   text-align: left;
   margin: 30px;
-  flex: 1; /* Allow each feature to expand equally */
-  /* Removed max-width to let features use available space */
+  flex: 1;
 }
 
 .feature img {
-  max-width: 250px; /* Adjust as needed for larger icons */
+  max-width: 250px;
   height: auto;
   margin-bottom: 10px;
 }
@@ -273,12 +268,10 @@ main {
   font-size: 1.2rem;
   font-family: "Cantarell", serif;
   width: 100%;
-  max-width: 400px; /* Adjust this value to your preference */
+  max-width: 400px;
 }
 
-/* --- End Modified Bottom-half --- */
-
-/* Text styling remains unchanged */
+/* Text Styling */
 .home-description {
   font-family: "Cantarell", serif;
   font-size: 2.9rem;
@@ -297,6 +290,8 @@ main {
   margin-bottom: 30px;
 }
 
+/* Demo Button */
+/* Demo Button (common styles) */
 .demo-btn {
   background-color: var(--orange-100);
   border: 2px solid var(--black);
@@ -312,36 +307,215 @@ main {
   justify-content: center;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: 4px 4px 0 black;
+  box-shadow: 4px 4px 0 var(--black);
 }
 
+.btn-update,
+.btn-delete {
+  width: 130px; /* Change as needed */
+}
+
+/* Delete Button Override */
+.btn-delete {
+  background-color: var(--orange-200); /* Red background */
+  color: var(--black);    /* White text */
+}
+
+.btn-update {
+  background-color: var(--orange-100); /* Blue background */
+  color: var(--black);           /* White text */
+}
+
+/* Utility */
 .hide-logo {
   display: none;
 }
 
+/* Pantry Container */
 .pantry-container {
-  padding: 20px;
+  margin: 0 auto;
+  padding-top: 0px;
+  padding-bottom: 100px; /* Added to prevent content from going behind the fixed footer */
+  background-color: var(--white);
+  text-align: center;
 }
 
-.add-item-container {
+/* Pantry Header (for line below heading/description) */
+.pantry-header {
+  width: 100%;
+  background-color: var(--white);
+  padding-bottom: 10px;
   margin-bottom: 20px;
 }
 
-#item-input {
-  padding: 10px;
-  font-size: 1.5rem;
-  margin-right: 10px;
-  border: 2px solid var(--black);
-  border-radius: 5px;
+
+/* Main Heading */
+.pantry-container h1 {
+  font-family: "Cantarell", serif;
+  font-weight: 700;
+  color: var(--black);
+  font-size: 5rem;
+  margin: 0;
+  text-align: center ;
 }
 
-#item-list {
+/* Pantry Description */
+.pantry-description {
+  font-family: "Cantarell", serif;
+  font-size: 1.5rem;
+  color: var(--black);
+  margin: 0rem 0 1rem;
+}
+
+/* Add Item Form (centered) */
+.add-item-form {
+  margin: 0 auto 20px;
+  max-width: 600px;
+  text-align: left;
+}
+
+/* Item List */
+.item-list {
+  width: 90%;
+  margin: 0 auto;
   list-style: none;
   padding: 0;
+  text-align: left; /* Ensures the content inside is left aligned */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
+  gap: 20px; /* Space between items */
 }
 
-#item-list li {
+.pantry-item {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid var(--black);
+  border-radius: 5px;
+  background-color: var(--beige-100); /* Updated background color */
+  max-width: 800px;
+  font-family: "Cantarell", serif;
+}
+
+
+/* Item Row */
+.item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Item Image */
+.item-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: none;
+  border-radius: 0;
+  display: block;
+}
+
+/* Item Info */
+.item-info {
+  flex: 1;
+  margin-left: 15px;
+  text-align: left;
+}
+
+/* Item Name */
+.item-name {
+  font-family: "Cantarell", serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  -webkit-text-stroke: 1px var(--black);
+  margin-bottom: 0.5rem;
+}
+
+/* Item Details */
+.item-details {
   font-size: 1.5rem;
-  padding: 5px 0;
-  border-bottom: 1px solid var(--gray);
+  line-height: 1.4;
+}
+
+/* Action Buttons */
+.item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Data Entry Footer (Fixed) */
+/* Data Entry Footer (Fixed) */
+.data-entry-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--beige-200);
+  padding: 10px 20px;
+  border-top: 2px solid var(--black);  /* Using black for the border */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+
+/* Footer Labels */
+.footer-label {
+  font-family: "Jersey 25", sans-serif;
+  font-size: 2rem;
+  margin-right: 5px;
+}
+
+/* Horizontal Add Item Form */
+.horizontal-add-item-form {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Adds spacing between each group */
+  flex-wrap: nowrap;
+  width: 100%;
+  max-width: 800px; /* Adjust as needed */
+}
+
+/* Data Group: Each label and its corresponding input */
+.data-group {
+  display: flex;
+  align-items: center;
+  gap: 0px; /* Small gap between label and input */
+}
+
+/* Form inputs for the horizontal form */
+.horizontal-add-item-form input[type="text"],
+.horizontal-add-item-form input[type="number"],
+.horizontal-add-item-form input[type="date"] {
+  padding: 10px;
+  font-size: 1.4rem;
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  /* Removed min-width so the input widths remain unchanged */
+}
+
+/* Make quantity input field less wide */
+.horizontal-add-item-form input[name="quantity"] {
+  width: 80px;
+}
+
+.horizontal-add-item-form input[name="name"]::placeholder {
+  font-family: "Cantarell", serif;
+}
+
+/* Adjust the button within the horizontal form */
+.horizontal-add-item-form .demo-btn {
+  height: auto;
+  padding: 10px 20px;
+  white-space: nowrap;
+}
+
+/* Footer Right Section */
+.footer-right {
+  text-align: right;
+}
+
+/* "Go to Recipes" Link */
+.goto-recipes {
+  margin-left: 20px;
 }
