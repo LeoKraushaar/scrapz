@@ -25,17 +25,6 @@ def findRecipes(query, mealTypes = None, healthLabels = None, time = None):
     
     if query: # If non-empty arr, continue
         base_url += "&q="
-        # for q in query:
-        #     # Edgecase: If the user input is empty (input blank), skip (IFF, there is no dropdown)
-        #     if q.strip() == "":
-        #         continue
-        #     ### Logic of f"q={"-".join(q.strip().lower().split())}&" ###
-        #         # q.strip() removes leading/trailing whitespaces
-        #         # q.lower() converts the string to lowercase
-        #         # q.split() splits the string into an array of words
-        #         # "-".join() joins the array of words into a string with "-" as the separator (API formatted)
-        #         # f"q={...}&" formats the string into the query format for the API
-        #     base_url += f"&q={'-'.join(q.strip().lower().split())}"
 
         for i in range(len(query)):
             if query[i].strip() == "":
@@ -50,18 +39,10 @@ def findRecipes(query, mealTypes = None, healthLabels = None, time = None):
         base_url += f"&app_key={api_key}"
     
     if mealTypes:
-        # for meal in mealTypes:
-        #     if meal.strip() == "":
-        #         continue
-        #     base_url += f"&mealType={'-'.join(meal.strip().lower().split())}"
         if mealTypes[0] != "":
             base_url += f"&mealType={mealTypes[0]}"
             
     if healthLabels:
-        # for healthLabel in healthLabels:
-        #     if healthLabel.strip() == "":
-        #         continue
-        #     base_url += f"&health={'-'.join(healthLabel.strip().lower().split())}"
         if healthLabels[0] != "":
             base_url += f"&health={healthLabels[0]}"
     
@@ -85,16 +66,3 @@ def findRecipes(query, mealTypes = None, healthLabels = None, time = None):
     else:   #Error
         print(f"Error: {response.status_code} - {response.text}")
         return None
-
-
-# Call fetPantry to fetch all user items (food) available
-#curInv = fetchPantry()
-
-#### To be removed once Front End is implemented ####
-# mealTypes = ["breakfast"]
-# healthLabels = []
-# time = []
-
-#recipesArr = findRecipes(curInv, mealTypes, healthLabels, time)
-
-#recipePreprocessing(json.dumps(recipesArr)) # Convert to JSON string

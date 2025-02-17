@@ -2,10 +2,8 @@ import json
 import os
 import certifi
 from dotenv import load_dotenv
-from pprint import pprint
 from pymongo import MongoClient
 from mongodb.preprocessing.fetch_pantry import fetchPantry
-from mongodb.preprocessing.get_items import FindKnownAs
 import inflect
 
 def recipePreprocessing(recipe):
@@ -46,14 +44,7 @@ def recipePreprocessing(recipe):
                 "mealType" : recipe["mealType"]
             }
             
-            # Search for all ingredients and put them in their respecitce lists (missingIngredient, or availableIngredient)
-            # for doc in recipe["ingredients"]:
-            #     result = userCollection.find_one({"foodId": doc["foodId"]})
-            #     if result is None:
-            #         updatedRecipe["missingIngredients"].append(doc["food"].title())
-            #     else:
-            #         updatedRecipe["availableIngredients"].append(doc["food"].title())
-            
+            # Search for all ingredients and put them in their respecitce lists (missingIngredient, or availableIngredient)           
             pantry = fetchPantry()
             addedIngredients = []
             for food in pantry:
