@@ -8,27 +8,24 @@ OK =  200
 id = os.getenv('API_USERNAME')
 api_key = os.getenv('API_KEY')
 
-def FindItems(name=None, upc=None, plu=None):
+def FindItems(name=None, upc=None):
     '''
     Finds the food item on Edamam API.
-    Returns a tuple containing the foodId and the dictionary containing all info.
+    Returns a dictionary, if found on API, else 1
     '''
     if name:
         endpoint = f"https://api.edamam.com/api/food-database/v2/parser?app_id={id}&app_key={api_key}&ingr={name}&nutrition-type=cooking"
     if upc:
         endpoint = f"https://api.edamam.com/api/food-database/v2/parser?app_id={id}&app_key={api_key}&upc={upc}&nutrition-type=cooking"
-    if plu:
-        endpoint = f"https://api.edamam.com/api/food-database/v2/parser?app_id={id}&app_key={api_key}&upc={plu}&nutrition-type=cooking"
     
     response = requests.get(endpoint)
     if response.status_code == OK:
-        if len(response.json()) > 0:
-            foodId = response.json()['hints'][0]['food']['foodId']
-            return (foodId, response.json())
+        if len(response.json()['hints']) > 0:
+            return response.json()
+        else:
+            return 1
     else:
         print(response)
         print('Error')
-
-print(FindItems(plu=4011)[0])
 
 

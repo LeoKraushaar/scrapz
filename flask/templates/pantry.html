@@ -1,14 +1,48 @@
 {% extends "base.html" %}
+
 {% block title %}Pantry{% endblock %}
 
 {% block content %}
 <div class="pantry-container">
   <h2>Pantry Items</h2>
-  <div class="add-item-container">
-    <input type="text" id="item-input" placeholder="Enter item" />
-    <button id="add-item-btn" class="demo-btn">Add Item</button>
-  </div>
-  <ul id="item-list"></ul>
+  
+  <!-- Form for adding a new item to the pantry -->
+  <form method="POST" action="{{ url_for('pantry.pantry') }}">
+    <div class="form-group">
+      <label for="name">Item Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter item name" required />
+    </div>
+    
+    <div class="form-group">
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" name="quantity" value="1" min="1" required />
+    </div>
+    
+    <div class="form-group">
+      <label for="expiry_date">Expiration Date:</label>
+      <input type="date" id="expiry_date" name="expiry_date" required />
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Add Item</button>
+  </form>
+  
+  <!-- Display pantry items -->
+  <h3>Current Pantry Items</h3>
+  <ul style="list-style-type: none; padding: 0;">
+    {% for item in pantry_items %}
+      <li style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+        {% if item.image %}
+          <img src="{{ item.image }}" alt="{{ item.name }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px;">
+        {% endif %}
+        <div>
+          <strong>{{ item.name }}</strong><br>
+          Category: {{ item.category }}<br>
+          Quantity: {{ item.quantity }}<br>
+          Expires: {{ item.expiryDate }}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>   
 </div>
 
 <script src="{{ url_for('static', filename='add.js') }}"></script>

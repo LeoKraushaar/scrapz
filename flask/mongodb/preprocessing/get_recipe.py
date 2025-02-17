@@ -4,13 +4,14 @@ import requests
 import json
 import time
 from pprint import pprint
-from recipe_preprocessing import recipePreprocessing
+from mongodb.preprocessing.recipe_preprocessing import recipePreprocessing
+from mongodb.preprocessing.fetch_pantry import fetchPantry
 
 load_dotenv()
-id = os.getenv('APP_ID')
-api_key = os.getenv('API_KEY')
+id = os.getenv('APP_ID_C')
+api_key = os.getenv('API_KEY_C')
 
-def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels):
+def findRecipes(query, mealTypes = None, dishTypes = None, cuisineTypes = None, dietLabels = None, healthLabels = None):
     # Assume the array holds item arrays, such that they represent the following:
     # [dietLabels, healthLabels, cautions, cuisineType, mealType, dishType]
     #### EXAMPLES ####
@@ -36,7 +37,7 @@ def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLab
                 # q.split() splits the string into an array of words
                 # "-".join() joins the array of words into a string with "-" as the separator (API formatted)
                 # f"q={...}&" formats the string into the query format for the API
-            base_url += f"q={"-".join(q.strip().lower().split())}&"
+            base_url += f"q={'-'.join(q.strip().lower().split())}&"
         
         # Add the app_id and app_key to the base_url after the query (format of the API req.)
         base_url += f"app_id={id}&"
@@ -46,31 +47,31 @@ def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLab
         for meal in mealTypes:
             if meal.strip() == "":
                 continue
-            base_url += f"mealType={"-".join(meal.strip().lower().split())}&"
+            base_url += f"mealType={'-'.join(meal.strip().lower().split())}&"
     
     if dishTypes:
         for dish in dishTypes:
             if dish.strip() == "":
                 continue
-            base_url += f"dishType={"-".join(dish.strip().lower().split())}&"
+            base_url += f"dishType={'-'.join(dish.strip().lower().split())}&"
     
     if cuisineTypes:
         for cuisine in cuisineTypes:
             if cuisine.strip() == "":
                 continue
-            base_url += f"cuisineType={"-".join(cuisine.strip().lower().split())}&"
+            base_url += f"cuisineType={'-'.join(cuisine.strip().lower().split())}&"
     
     if dietLabels:
         for dietLabel in dietLabels:
             if dietLabel.strip() == "":
                 continue
-            base_url += f"diet={"-".join(dietLabel.strip().lower().split())}&"
+            base_url += f"diet={'-'.join(dietLabel.strip().lower().split())}&"
             
     if healthLabels:
         for healthLabel in healthLabels:
             if healthLabel.strip() == "":
                 continue
-            base_url += f"health={"-".join(healthLabel.strip().lower().split())}&"
+            base_url += f"health={'-'.join(healthLabel.strip().lower().split())}&"
     
     ##### Unsure if this is the correct format for cautions (i.e., unsure if it's for dietary restrictions) #####
     # if excluded:
@@ -96,15 +97,17 @@ def FindRecipes(query, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLab
         return None
 
 
+# Call fetPantry to fetch all user items (food) available
+#curInv = fetchPantry()
+
 #### To be removed once Front End is implemented ####
-curInv = ["Chicken     alfredo    "] 
-mealTypes = ["Dinner "]
-dishTypes = []
-cuisineTypes = []
-dietLabels = []
-healthLabels = []
+# mealTypes = ["breakfast"]
+# dishTypes = []
+# cuisineTypes = []
+# dietLabels = ["high protein"]
+# healthLabels = []
 #excluded = []
 
-recipesArr = FindRecipes(curInv, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels)
+#recipesArr = findRecipes(curInv, mealTypes, dishTypes, cuisineTypes, dietLabels, healthLabels)
 
-recipePreprocessing(json.dumps(recipesArr)) # Convert to JSON string
+#recipePreprocessing(json.dumps(recipesArr)) # Convert to JSON string
