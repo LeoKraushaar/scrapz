@@ -1,112 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Recipe List</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #4CAF50;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            width: 80%;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-        li {
-            background: #fff;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .recipe-container {
-            background: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.1);
-            padding: 15px;
-            margin-bottom: 20px;
-            max-width: 600px;
-        }
-        .recipe-image {
-            max-width: 100%;
-            border-radius: 5px;
-        }
-        .recipe-label {
-            font-size: 1.5rem;
-            margin: 10px 0;
-        }
-        .recipe-source {
-            margin: 5px 0;
-        }
-        .recipe-source a {
-            text-decoration: none;
-            color: #007BFF;
-        }
-        .recipe-source a:hover {
-            text-decoration: underline;
-        }
-        .ingredients-list {
-            margin-top: 10px;
-            list-style-type: disc;
-            margin-left: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Recipe Results</h1>
+{% extends "base.html" %}
 
-    {% if recipes %}
+{% block title %}Recipe List{% endblock %}
+
+{% block content %}
+<h1>Recipe Results</h1>
+
+<!-- Form to filter recipes -->
+<form method="POST" action="{{ url_for('load_recipe.get_recipe') }}">
+    <div class="form-group">
+        <label for="meal_type">Meal Type:</label>
+        <select name="meal_type" id="meal_type" class="form-control">
+            <option value="">Any</option>
+            <option value="breakfast">Breakfast</option>
+            <option value="lunch">Lunch</option>
+            <option value="dinner">Dinner</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="diet">Diet Restrictions:</label>
+        <select name="diet" id="diet" class="form-control">
+            <option value="">None</option>
+            <option value="dairy-free">Dairy-Free</option>
+            <option value="gluten-free">Gluten-Free</option>
+            <option value="peanut-free">Peanut-Free</option>
+            <option value="vegan">Vegan</option>
+            <option value="vegetarian">Vegetarian</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="max_cook_time">Max Cook Time (in minutes):</label>
+        <input type="number" name="max_cook_time" id="max_cook_time" class="form-control" placeholder="Enter max cook time" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Find Recipes</button>
+</form>
+
+{% if recipes %}
+    <h2>Recipes</h2>
+    <ul>
         {% for recipe in recipes %}
-        <div class="recipe-container">
-            
-            <!-- Recipe Image -->
-            <img 
-                src="{{ recipe.image }}" 
-                alt="{{ recipe.label }}" 
-                class="recipe-image"
-            />
-            
-            <!-- Recipe Label -->
-            <h2 class="recipe-label">{{ recipe.label }}</h2>
-            
-            <!-- Source with Hyperlink -->
-            <p class="recipe-source">
-                Source: 
-                <a href="{{ recipe.url }}" target="_blank">
-                    {{ recipe.source }}
-                </a>
-            </p>
-            
-            <!-- Available Ingredients -->
-            <h3>Available Ingredients:</h3>
-            <ul class="ingredients-list">
+        <li>
+            <h3>{{ recipe.label }}</h3>
+            <img src="{{ recipe.image }}" alt="{{ recipe.label }}" />
+            <p><strong>Source:</strong> <a href="{{ recipe.url }}" target="_blank">{{ recipe.source }}</a></p>
+            <p><strong>Available Ingredients:</strong></p>
+            <ul>
                 {% for ingredient in recipe.availableIngredients %}
-                <li>{{ ingredient }}</li>
+                    <li>{{ ingredient }}</li>
                 {% endfor %}
             </ul>
-
-            <!-- Missing Ingredients -->
-            <h3>Missing Ingredients:</h3>
-            <ul class="ingredients-list">
-                {% for ingredient in recipe.missingIngredients %}
-                <li>{{ ingredient }}</li>
-                {% endfor %}
-            </ul>
-            
-        </div>
+        </li>
         {% endfor %}
-    {% else %}
-        <p>No recipes found.</p>
-    {% endif %}
-</body>
-</html>
+    </ul>
+{% else %}
+    <p>No recipes found.</p>
+{% endif %}
+{% endblock %}
