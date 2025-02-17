@@ -40,8 +40,10 @@ def get_recipe():
     # Save the recipes to MongoDB or query them if already saved
     # recipes = mongo.queryCollection(RECIPES)
     recipes = collection.aggregate([
-        {"$sort": {"availableIngredients": 1}},
+        {"$addFields": {"numAvailableIngredients": {"$size": "$availableIngredients"}}},
+        {"$sort": {"numAvailableIngredients": -1}}
     ])
+
 
     # Return the rendered recipe page with the recipes data
     return render_template('recipe.html', recipes=recipes)

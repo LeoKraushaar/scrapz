@@ -22,11 +22,6 @@ def ProcessItems(dict, quantity, date):
     item['category'] = 'Others'
     item['quantity'] = f"{quantity}"
     item['expiryDate'] = date
-    item['Carbohydrate(g)'] = food['nutrients']['CHOCDF']
-    item['Energy(kcal)'] = food['nutrients']['ENERC_KCAL']
-    item['Fat(g)'] = food['nutrients']['FAT']
-    item['Fiber(g)'] = food['nutrients']['FIBTG']
-    item['Protein(g)'] = food['nutrients']['PROCNT']
     item['image'] = food['image']
     
     p = inflect.engine() # Helps convert nouns into singular form
@@ -73,11 +68,6 @@ def ProcessUnknownItems(name, quantity, date):
     item['category'] = 'Others'
     item['quantity'] = f"{quantity}"
     item['expiryDate'] = date
-    item['Carbohydrate(g)'] = 0
-    item['Energy(kcal)'] = 0
-    item['Fat(g)'] = 0
-    item['Fiber(g)'] = 0
-    item['Protein(g)'] = 0
     item['image'] = 'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/hamburger.png'
   
     p = inflect.engine() # Helps convert nouns into singular form
