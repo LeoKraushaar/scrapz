@@ -561,15 +561,16 @@ select.form-control {
 
 .recipe-item {
   display: flex;
-  align-items: flex-start;
-  gap: 20px; 
-  border-bottom: 1px solid var(--gray); 
+  align-items: flex-start; 
+  gap: 20px;
+  border-bottom: 1px solid var(--gray);
   padding-bottom: 20px;
   margin-bottom: 20px;
 }
 
 .recipe-img {
   flex: 0 0 300px;
+  margin-top: 10px; 
 }
 
 .recipe-img img {
@@ -582,7 +583,8 @@ select.form-control {
 
 .recipe-info {
   flex: 1;
-  margin-left: 30px; 
+  margin-left: 30px;
+  margin-top: 0;  
 }
 
 .recipe-name {
@@ -597,4 +599,24 @@ select.form-control {
   font-family: "Cantarell", serif;
   font-size: 1.4rem;
   margin: 0.5rem 0;
+}
+
+.recipe-ingredients {
+  display: flex;
+  gap: 10px; 
+  margin-top: 10px;
+}
+
+.recipe-ingredients .ingredients {
+  flex: 1;
+}
+
+.recipe-ingredients .ingredients p {
+  margin-bottom: 10px;
+}
+
+.recipe-ingredients .ingredients ul {
+  list-style: disc inside; 
+  margin: 0;
+  padding: 0;
 }
