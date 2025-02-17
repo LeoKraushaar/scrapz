@@ -1,89 +1,125 @@
 {% extends "base.html" %}
 
-{% block title %}Pantry{% endblock %}
+{% block title %}Scrapz - Pantry{% endblock %}
 
 {% block content %}
 <div class="pantry-container">
-  <h2>Pantry Items</h2>
+  <div class="pantry-header">
+    <h1>Pantry</h1>
+    <p class="pantry-description">Log your ingredients below</p>
+  </div>
   
-  <!-- Form for adding a new item to the pantry -->
-  <form method="POST" action="{{ url_for('pantry.pantry') }}">
-    <div class="form-group">
-      <label for="name">Item Name:</label>
-      <input type="text" id="name" name="name" placeholder="Enter item name" required />
-    </div>
-    
-    <div class="form-group">
-      <label for="quantity">Quantity:</label>
-      <input type="number" id="quantity" name="quantity" value="1" min="1" required />
-    </div>
-    
-    <div class="form-group">
-      <label for="expiry_date">Expiration Date:</label>
-      <input type="date" id="expiry_date" name="expiry_date" required />
-    </div>
-    
-    <button type="submit" class="btn btn-primary">Add Item</button>
-  </form>
-  
-  <!-- Display pantry items -->
-  <h3>Current Pantry Items</h3>
-  <ul style="list-style-type: none; padding: 0;">
+  <ul id="item-list" class="item-list">
     {% for item in pantry_items %}
-      <li style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-        {% if item.image %}
-          <img src="{{ item.image }}" alt="{{ item.name }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 10px;">
-        {% endif %}
-        <div>
-          <strong>{{ item.name }}</strong><br>
-          Category: {{ item.category }}<br>
-          Quantity: {{ item.quantity }}<br>
-          Expires: {{ item.expiryDate }}
-        </div>
-
-        <!-- Update Button -->
-        <button class="btn btn-warning update-btn" data-item="{{ item.name }}">Update</button>
-        
-        <!-- Delete Button -->
-        <form method="POST" action="{{ url_for('pantry.delete_pantry_item', item_name=item.name) }}" style="display:inline;">
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-
-        <!-- Update Fields (Initially Hidden) -->
-        <div class="update-fields" id="update-fields-{{ item.name }}" style="display: none;">
-          <form method="POST" action="{{ url_for('pantry.update_pantry_item', item_name=item.name) }}">
-            <div>
-              <input type="number" name="quantity" placeholder="New Quantity" />
+      <li class="pantry-item">
+        <div class="item-row">
+          <div class="item-image">
+            {% if item.image %}
+              <img src="{{ item.image }}" alt="{{ item.name }}">
+            {% endif %}
+          </div>
+          
+          <div class="item-info">
+            <div class="item-name">
+              <strong>{{ item.name }}</strong>
             </div>
-            <div>
-              <input type="date" name="expiry_date" placeholder="New Expiry Date" />
+            <div class="item-details">
+              Category: {{ item.category }}<br>
+              Quantity: {{ item.quantity }}<br>
+              Expires: {{ item.expiryDate }}
             </div>
-            <button type="submit" class="btn btn-success">Update</button>
-          </form>
+          </div>
+          
+          <div class="item-actions">
+            <button class="demo-btn btn-update" 
+                    data-item="{{ item.name }}" 
+                    data-quantity="{{ item.quantity }}" 
+                    data-expiry="{{ item.expiryDate }}">
+              Update
+            </button>
+            <form method="POST" action="{{ url_for('pantry.delete_pantry_item', item_name=item.name) }}">
+              <button type="submit" class="demo-btn btn-delete">Delete</button>
+            </form>
+          </div>
         </div>
       </li>
     {% endfor %}
   </ul>   
-
-  <!-- Button to go to the recipe page -->
-  <a href="{{ url_for('pantry.recipe') }}" class="btn btn-secondary">Go to Recipes</a> 
+  
+  <footer class="data-entry-footer">
+    <div class="footer-left">
+      <form method="POST" action="{{ url_for('pantry.pantry') }}" class="horizontal-add-item-form">
+        <div class="data-group">
+          <span class="footer-label">NAME:</span>
+          <input type="text" name="name" placeholder="Item Name" required>
+        </div>
+        <div class="data-group">
+          <span class="footer-label">QTY:</span>
+          <input type="number" name="quantity" value="1" min="1" required>
+        </div>
+        <div class="data-group">
+          <span class="footer-label">EXP:</span>
+          <input type="date" name="expiry_date" required>
+        </div>
+        <button type="submit" class="demo-btn form-submit-btn">Add Item</button>
+      </form>
+    </div>
+    <div class="footer-right">
+      <a href="{{ url_for('pantry.recipe') }}" class="demo-btn goto-recipes">Go to Recipes</a>
+    </div>
+  </footer>
+  
 </div>
 
 <script>
-  // Toggle the visibility of the update fields when the update button is clicked
-  document.querySelectorAll('.update-btn').forEach(function(button) {
-    button.addEventListener('click', function() {
-      var itemName = button.getAttribute('data-item');
-      var updateFields = document.getElementById('update-fields-' + itemName);
+  // Get a reference to the footer form
+  const footerForm = document.querySelector('.horizontal-add-item-form');
+  const submitButton = footerForm.querySelector('.form-submit-btn');
+  // Save the original action (for adding)
+  const originalAction = footerForm.action;
+  
+  // Add event listeners to all update buttons
+  document.querySelectorAll('.btn-update').forEach(function(button) {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Get data attributes from the clicked update button
+      const itemName = button.getAttribute('data-item');
+      const quantity = button.getAttribute('data-quantity');
+      const expiry = button.getAttribute('data-expiry');
       
-      // Toggle visibility of update form
-      if (updateFields.style.display === 'none' || updateFields.style.display === '') {
-        updateFields.style.display = 'block';
-      } else {
-        updateFields.style.display = 'none';
-      }
+      // Populate the footer form fields with the current item's data
+      footerForm.elements['name'].value = itemName;
+      footerForm.elements['quantity'].value = quantity;
+      footerForm.elements['expiry_date'].value = expiry;
+      
+      // Change the form action to the update endpoint
+      // We assume your update endpoint URL uses the item name as a parameter.
+      footerForm.action = "{{ url_for('pantry.update_pantry_item', item_name='__item__') }}".replace('__item__', itemName);
+      
+      // Change the submit button text to "Update Item"
+      submitButton.textContent = 'Update Item';
+      
+      // Optionally, add a visual indicator or data attribute to mark update mode
+      footerForm.dataset.mode = 'update';
     });
   });
+  
+  // Optionally, listen for form submission to reset back to add mode
+  footerForm.addEventListener('submit', function(e) {
+    // After submission (or on successful AJAX update), reset form
+    // For a non-AJAX form, the page will reload so this may not be necessary.
+    // If using AJAX, after a successful update do:
+    // Reset the form fields, change action back to original, and set button text back to "Add Item".
+    // Example (for AJAX):
+    /*
+    e.preventDefault();
+    // perform AJAX submission...
+    // on success:
+    footerForm.reset();
+    footerForm.action = originalAction;
+    submitButton.textContent = 'Add Item';
+    delete footerForm.dataset.mode;
+    */
+  });
 </script>
-
 {% endblock %}
