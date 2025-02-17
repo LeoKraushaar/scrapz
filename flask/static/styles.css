@@ -68,15 +68,13 @@ body {
 }
 
 .site-logo {
-  color: var(--white);
+  text-decoration: none; 
+  color: var(--white);  
   font-size: 5rem;
-  margin: 0;
   -webkit-text-stroke: 1px black;
-  text-shadow: -1px -1px 0 black, 
-               1px -1px 0 black, 
-              -1px  1px 0 black, 
-               1px  1px 0 black;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black, 1px  1px 0 black;
 }
+
 
 .menu-btn {
   position: absolute;
@@ -467,11 +465,17 @@ main {
 
 .horizontal-add-item-form input[name="quantity"] {
   width: 80px;
+  font-family: "Cantarell", serif;
 }
 
 .horizontal-add-item-form input[name="name"]::placeholder {
   font-family: "Cantarell", serif;
 }
+
+.horizontal-add-item-form input[name="name"] {
+  font-family: "Cantarell", serif;
+}
+
 
 .horizontal-add-item-form .demo-btn {
   height: auto;
@@ -485,4 +489,112 @@ main {
 
 .goto-recipes {
   margin-left: 20px;
+}
+
+.recipe-header {
+  width: 100%;
+  background-color: var(--white);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  text-align: center; 
+}
+
+.recipe-header h1 {
+  font-family: "Cantarell", serif;
+  font-weight: 700;
+  color: var(--black);
+  font-size: 5rem;
+  margin: 0;
+  text-align: center;
+}
+
+.recipe-header p {
+  font-family: "Cantarell", serif;
+  font-size: 1.5rem;
+  color: var(--black);
+  margin: 0.5rem 0 1rem;
+  text-align: center;
+}
+
+.recipe-data-entry {
+  background-color: var(--beige-200);
+  padding: 10px 20px;
+  border-top: 2px solid var(--black);
+  border-bottom: 2px solid var(--black); 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.recipe-data-entry .horizontal-add-item-form {
+  width: 100%;
+  max-width: 1500px; 
+  margin: 0 auto;  
+  justify-content: space-between; 
+}
+
+.recipe-data-entry select.form-control {
+  min-width: 200px; 
+  white-space: nowrap;
+}
+
+select.form-control {
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  min-height: 50px; 
+  padding: 5px 5px; 
+  font-size: 1.4rem;
+  font-family: "Cantarell", serif;
+}
+
+::placeholder {
+  font-family: "Cantarell", serif;
+}
+
+.recipe-results {
+  width: 90%;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
+}
+
+.recipe-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px; 
+  border-bottom: 1px solid var(--gray); 
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.recipe-img {
+  flex: 0 0 300px;
+}
+
+.recipe-img img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border: 2px solid var(--black);
+  border-radius: 5px;
+}
+
+.recipe-info {
+  flex: 1;
+  margin-left: 30px; 
+}
+
+.recipe-name {
+  font-family: "Cantarell", serif;
+  font-weight: 700;
+  font-size: 2.5rem; 
+  margin-bottom: 0.5rem;
+}
+
+.recipe-info p,
+.recipe-info ul {
+  font-family: "Cantarell", serif;
+  font-size: 1.4rem;
+  margin: 0.5rem 0;
 }
