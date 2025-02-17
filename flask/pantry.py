@@ -1,14 +1,21 @@
 import os
+import json
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify
+from mongodb.mongo_manager import MongoManager
+from constants import DB, RECIPES
 from mongodb.preprocessing.get_items import FindItems
 from mongodb.preprocessing.items_preprocessing import ProcessUnknownItems, ProcessItems
 from mongodb.preprocessing.pantry_actions import update_item, delete_item
+from mongodb.preprocessing.fetch_pantry import fetchPantry
+from mongodb.preprocessing.get_recipe import findRecipes
+from mongodb.preprocessing.recipe_preprocessing import recipePreprocessing
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import certifi
 
 # Create a blueprint for the pantry route
 pantry_bp = Blueprint('pantry', __name__)
+mongo = MongoManager(DB)
 
 @pantry_bp.route('/pantry', methods=['GET', 'POST'])
 def pantry():
@@ -49,6 +56,21 @@ def view_pantry():
     # Render the template and pass pantry items
     return render_template('pantry.html', pantry_items=pantry_items)
 
+@pantry_bp.route('/pantry/recipes')
+def get_recipe():
+    # Load the pantry items from the MongoDB database
+    pantryItems = fetchPantry()
+
+    # Load the recipes from the Edamam API
+    recipesArr = findRecipes(pantryItems)
+
+    # Preprocess the recipes
+    recipePreprocessing(pantryItems, json.dumps(recipesArr))
+    
+    # Adjust the template and context as needed
+    recipes = mongo.queryCollection(RECIPES)
+    return render_template('recipe.html', recipes=recipes)
+
 @pantry_bp.route('/pantry/update/<item_name>', methods=['POST'])
 def update_pantry_item(item_name):
     new_quantity = request.form.get('quantity')
@@ -70,3 +92,8 @@ def delete_pantry_item(item_name):
     delete_item(item_name)
     
     return redirect(url_for('pantry.view_pantry'))
+
+@pantry_bp.route('/recipe')
+def recipe():
+    # Your logic to fetch recipe data
+    return render_template('recipe.html')
