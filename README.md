@@ -1,5 +1,6 @@
 # Scrapz
 Project for HackED 2025 (Team c-flat) 
+## Home Page
 ![image](https://github.com/user-attachments/assets/8009000e-6021-4255-9f38-109827f08f00)
 ## Pantry
 ![image](https://github.com/user-attachments/assets/8c65107a-cb62-4cf9-9dae-4359c7e7cc30)
