@@ -1,5 +1,11 @@
 # Scrapz
-Project for HackED 2025 (Team c-flat)  
+Project for HackED 2025 (Team c-flat) 
+![image](https://github.com/user-attachments/assets/8009000e-6021-4255-9f38-109827f08f00)
+## Pantry
+![image](https://github.com/user-attachments/assets/8c65107a-cb62-4cf9-9dae-4359c7e7cc30)
+## Recipes
+![image](https://github.com/user-attachments/assets/4816d5b5-3628-4a14-bd36-18c7c98c6468)
+
 ## Inspiration
 As university students, we often struggle with managing our pantry and figuring out what to cook with the ingredients we have. Food waste is a common issue, and we wanted to build a tool that helps busy students and individuals make the most of what’s already in their kitchen. Our goal was to create a pantry tracker that not only keeps an inventory of available ingredients based on expiry date but also suggests recipes based on what’s on hand as well as what might be needed, making meal planning easier and reducing waste.
 ## What it does
